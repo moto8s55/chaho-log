@@ -1,7 +1,8 @@
 const map = L.map('map').setView([30, 110], 4);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors'
+  attribution: '© OpenStreetMap contributors',
+  opacity: 0.6,
 }).addTo(map);
 
 async function loadMap() {
@@ -10,7 +11,6 @@ async function loadMap() {
     fetch('/api/regions').then(r => r.json()).catch(() => ({})),
   ]);
 
-  // Group by 産地
   const byRegion = {};
   for (const rec of records) {
     const region = rec['産地'] || '';
@@ -25,9 +25,9 @@ async function loadMap() {
 
     const icon = L.divIcon({
       className: '',
-      html: `<div class="pin-badge">${recs.length}</div>`,
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
+      html: `<div class="pin-stamp">${recs.length}</div>`,
+      iconSize: [34, 34],
+      iconAnchor: [17, 17],
     });
 
     L.marker(coords, { icon })
@@ -37,7 +37,7 @@ async function loadMap() {
 }
 
 function showPopup(region, recs) {
-  document.getElementById('popup-region').textContent = `📍 ${region}（${recs.length}件）`;
+  document.getElementById('popup-region').textContent = `📍 ${region}（${recs.length} 件）`;
   const list = document.getElementById('popup-list');
   list.innerHTML = recs.map(r => `
     <li>
@@ -45,7 +45,7 @@ function showPopup(region, recs) {
       <strong>${r['茶葉名'] || '（名称未入力）'}</strong>
       　${r['茶類'] || ''}
       　<span class="record-star">${'★'.repeat(Number(r['評価']) || 0)}</span>
-      <br><small>${r['記録日'] || ''} ${r['場所'] || ''}</small>
+      <br><small style="color:var(--text2);letter-spacing:0.05em">${r['記録日'] || ''}　${r['場所'] || ''}</small>
     </li>
   `).join('');
   document.getElementById('popup-overlay').classList.remove('hidden');

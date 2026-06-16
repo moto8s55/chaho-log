@@ -3,278 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>記録する｜茶譜ログ</title>
+  <title>新 記 錄 · 品茗手帖</title>
   <link rel="manifest" href="/static/manifest.json">
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body class="record-page">
-  <header>
-    <a href="/" class="btn-back">← 地図に戻る</a>
-    <h1>🍵 新しく記録する</h1>
-  </header>
+  <div class="outer-frame">
+    <span class="corner-bl"></span>
+    <span class="corner-br"></span>
 
-  <form id="record-form">
-
-    <!-- 基本情報 -->
-    <section class="accordion open" data-key="basic">
-      <button type="button" class="accordion-header">
-        📋 基本情報 <span class="badge"></span><span class="arrow">▲</span>
-      </button>
-      <div class="accordion-body">
-        <label>記録日<span class="req">必須</span>
-          <input type="date" name="記録日" id="field-date" required>
-        </label>
-        <label>茶葉名
-          <input type="text" name="茶葉名" placeholder="例：大紅袍">
-        </label>
-        <label>産地（省）
-          <select name="産地"><option value="">選択してください</option></select>
-        </label>
-        <label>茶類
-          <select name="茶類"><option value="">選択してください</option></select>
-        </label>
-        <label>茶号 / 品番
-          <input type="text" name="茶号/品番" placeholder="例：A-001">
-        </label>
-        <label>年份
-          <input type="number" name="年份" placeholder="例：2022" min="1900" max="2099">
-        </label>
-        <label>場所
-          <input type="text" name="場所" placeholder="例：上海茶館">
-        </label>
-        <label>天気
-          <select name="天気"><option value="">選択してください</option></select>
-        </label>
+    <header>
+      <a href="/" class="btn-back">← 地 圖</a>
+      <div class="header-center">
+        <div class="header-title">新 記 錄</div>
+        <div class="header-sub">品 茗 手 帖  ·  上 海 茶 館</div>
       </div>
-    </section>
+      <div class="header-deco">茶</div>
+    </header>
 
-    <!-- 茶樹・土壌 -->
-    <section class="accordion" data-key="tree">
-      <button type="button" class="accordion-header">
-        🌿 茶樹・土壌情報 <span class="badge"></span><span class="arrow">▼</span>
-      </button>
-      <div class="accordion-body hidden">
-        <label>海抜
-          <select name="海抜"><option value="">選択してください</option></select>
-        </label>
-        <label>茶山環境
-          <select name="茶山環境"><option value="">選択してください</option></select>
-        </label>
-        <label>茶樹年齢
-          <select name="茶樹年齢"><option value="">選択してください</option></select>
-        </label>
-        <label>樹形
-          <select name="樹形"><option value="">選択してください</option></select>
-        </label>
-        <label>土質
-          <select name="土質"><option value="">選択してください</option></select>
-        </label>
-      </div>
-    </section>
+    <form id="record-form">
 
-    <!-- 淹れ方 -->
-    <section class="accordion" data-key="brew">
-      <button type="button" class="accordion-header">
-        🫖 淹れ方情報 <span class="badge"></span><span class="arrow">▼</span>
-      </button>
-      <div class="accordion-body hidden">
-        <label>茶壺材質
-          <select name="茶壺材質"><option value="">選択してください</option></select>
-        </label>
-        <label>水質
-          <select name="水質"><option value="">選択してください</option></select>
-        </label>
-        <label>水温（℃）
-          <input type="number" name="水温(℃)" placeholder="例：95" min="0" max="100">
-        </label>
-        <label>茶葉量（g）
-          <input type="number" name="茶葉量(g)" placeholder="例：5" step="0.1">
-        </label>
-        <label>注湯量（ml）
-          <input type="number" name="注湯量(ml)" placeholder="例：100">
-        </label>
-        <label>出汤速度
-          <input type="text" name="出汤速度" placeholder="例：即出 / 10秒">
-        </label>
-        <label>冲泡次数（煎）
-          <input type="number" name="冲泡次数(煎)" placeholder="例：3" min="1">
-        </label>
-        <label>焼水方式
-          <select name="焼水方式"><option value="">選択してください</option></select>
-        </label>
-      </div>
-    </section>
+      <!-- 基本情報 -->
+      <section class="accordion open" data-key="basic">
+        <button type="button" class="accordion-header">
+          📋 基 本 情 報 <span class="badge"></span><span class="arrow">▲</span>
+        </button>
+        <div class="accordion-body">
+          <label>記 録 日 <span class="req">必須</span>
+            <input type="date" name="記録日" id="field-date" required>
+          </label>
+          <label>茶 葉 名
+            <input type="text" name="茶葉名" placeholder="例：大紅袍">
+          </label>
+          <label>産 地（省）
+            <select name="産地"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>茶 類
+            <select name="茶類"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>茶 号 · 品 番
+            <input type="text" name="茶号/品番" placeholder="例：A-001">
+          </label>
+          <label>年 份
+            <input type="number" name="年份" placeholder="例：2022" min="1900" max="2099">
+          </label>
+          <label>場 所
+            <input type="text" name="場所" placeholder="例：上海茶館">
+          </label>
+          <label>天 氣
+            <select name="天気"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+        </div>
+      </section>
 
-    <!-- 外観・水色 -->
-    <section class="accordion" data-key="look">
-      <button type="button" class="accordion-header">
-        👁 外観・水色 <span class="badge"></span><span class="arrow">▼</span>
-      </button>
-      <div class="accordion-body hidden">
-        <label>水色
-          <input type="text" name="水色" placeholder="例：琥珀色、淡黄">
-        </label>
-        <label>透明度
-          <input type="text" name="透明度" placeholder="例：透明、やや濁り">
-        </label>
-        <label>茶葉形態
-          <input type="text" name="茶葉形態" placeholder="例：条索状、球状">
-        </label>
-      </div>
-    </section>
+      <!-- 茶樹・土壌 -->
+      <section class="accordion" data-key="tree">
+        <button type="button" class="accordion-header">
+          🌿 茶 樹 · 土 壤 情 報 <span class="badge"></span><span class="arrow">▼</span>
+        </button>
+        <div class="accordion-body hidden">
+          <label>海 抜
+            <select name="海抜"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>茶 山 環 境
+            <select name="茶山環境"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>茶 樹 年 齢
+            <select name="茶樹年齢"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>樹 形
+            <select name="樹形"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>土 質
+            <select name="土質"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+        </div>
+      </section>
 
-    <!-- 香り -->
-    <section class="accordion" data-key="aroma">
-      <button type="button" class="accordion-header">
-        👃 香り <span class="badge"></span><span class="arrow">▼</span>
-      </button>
-      <div class="accordion-body hidden">
-        <label>香りの種類
-          <input type="text" name="香りの種類" placeholder="例：花香、果香、木香">
-        </label>
-        <label>香りの強さ
-          <input type="text" name="香りの強さ" placeholder="例：強、中、弱">
-        </label>
-        <label>純粋度
-          <input type="text" name="純粋度" placeholder="例：高、中、低">
-        </label>
-        <label>持続時間
-          <input type="text" name="持続時間" placeholder="例：長、中、短">
-        </label>
-      </div>
-    </section>
+      <!-- 淹れ方 -->
+      <section class="accordion" data-key="brew">
+        <button type="button" class="accordion-header">
+          🫖 淹 れ 方 情 報 <span class="badge"></span><span class="arrow">▼</span>
+        </button>
+        <div class="accordion-body hidden">
+          <label>茶 壺 材 質
+            <select name="茶壺材質"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>水 質
+            <select name="水質"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>水 温（℃）
+            <input type="number" name="水温(℃)" placeholder="例：95" min="0" max="100">
+          </label>
+          <label>茶 葉 量（g）
+            <input type="number" name="茶葉量(g)" placeholder="例：5" step="0.1">
+          </label>
+          <label>注 湯 量（ml）
+            <input type="number" name="注湯量(ml)" placeholder="例：100">
+          </label>
+          <label>出 汤 速 度
+            <input type="text" name="出汤速度" placeholder="例：即出 / 10秒">
+          </label>
+          <label>冲 泡 次 数（煎）
+            <input type="number" name="冲泡次数(煎)" placeholder="例：3" min="1">
+          </label>
+          <label>焼 水 方 式
+            <select name="焼水方式"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+        </div>
+      </section>
 
-    <!-- 味・口感 -->
-    <section class="accordion" data-key="taste">
-      <button type="button" class="accordion-header">
-        👅 味・口感 <span class="badge"></span><span class="arrow">▼</span>
-      </button>
-      <div class="accordion-body hidden">
-        <label>口腔濃度
-          <select name="口腔濃度"><option value="">選択してください</option></select>
-        </label>
-        <label>前調
-          <input type="text" name="前調" placeholder="例：苦味、甘味">
-        </label>
-        <label>中調
-          <input type="text" name="中調" placeholder="例：花香、まろやか">
-        </label>
-        <label>後調
-          <input type="text" name="後調" placeholder="例：甘み、余韻">
-        </label>
-        <label>水含香
-          <input type="text" name="水含香" placeholder="例：あり、なし">
-        </label>
-        <label>水含香種類
-          <input type="text" name="水含香種類" placeholder="例：花香、果香">
-        </label>
-        <label>回甘
-          <select name="回甘"><option value="">選択してください</option></select>
-        </label>
-        <label>回甘持続
-          <input type="text" name="回甘持続" placeholder="例：長、中、短">
-        </label>
-        <label>生津
-          <select name="生津"><option value="">選択してください</option></select>
-        </label>
-        <label>生津持続
-          <input type="text" name="生津持続" placeholder="例：長、中、短">
-        </label>
-      </div>
-    </section>
+      <!-- 外観・水色 -->
+      <section class="accordion" data-key="look">
+        <button type="button" class="accordion-header">
+          👁 外 観 · 水 色 <span class="badge"></span><span class="arrow">▼</span>
+        </button>
+        <div class="accordion-body hidden">
+          <label>水 色
+            <input type="text" name="水色" placeholder="例：琥珀色、淡黄">
+          </label>
+          <label>透 明 度
+            <input type="text" name="透明度" placeholder="例：透明、やや濁り">
+          </label>
+          <label>茶 葉 形 態
+            <input type="text" name="茶葉形態" placeholder="例：条索状、球状">
+          </label>
+        </div>
+      </section>
 
-    <!-- 喉韻 -->
-    <section class="accordion" data-key="throat">
-      <button type="button" class="accordion-header">
-        🌊 喉韻 <span class="badge"></span><span class="arrow">▼</span>
-      </button>
-      <div class="accordion-body hidden">
-        <label>喉韻
-          <select name="喉韻"><option value="">選択してください</option></select>
-        </label>
-        <label>喉韻の強さ
-          <input type="text" name="喉韻の強さ" placeholder="例：強、中、弱">
-        </label>
-        <label>身体反応（複数選択可）
-          <div class="checkbox-group" id="身体反応-group"></div>
-        </label>
-      </div>
-    </section>
+      <!-- 香り -->
+      <section class="accordion" data-key="aroma">
+        <button type="button" class="accordion-header">
+          👃 香 り <span class="badge"></span><span class="arrow">▼</span>
+        </button>
+        <div class="accordion-body hidden">
+          <label>香 り の 種 類
+            <input type="text" name="香りの種類" placeholder="例：花香、果香、木香">
+          </label>
+          <label>香 り の 強 さ
+            <input type="text" name="香りの強さ" placeholder="例：強、中、弱">
+          </label>
+          <label>純 粋 度
+            <input type="text" name="純粋度" placeholder="例：高、中、低">
+          </label>
+          <label>持 続 時 間
+            <input type="text" name="持続時間" placeholder="例：長、中、短">
+          </label>
+        </div>
+      </section>
 
-    <!-- 総合評価 -->
-    <section class="accordion open" data-key="eval">
-      <button type="button" class="accordion-header">
-        ⭐ 総合評価 <span class="badge"></span><span class="arrow">▲</span>
-      </button>
-      <div class="accordion-body">
-        <label>評価
-          <div class="star-input" id="star-input">
-            <span data-v="1">★</span>
-            <span data-v="2">★</span>
-            <span data-v="3">★</span>
-            <span data-v="4">★</span>
-            <span data-v="5">★</span>
-          </div>
-          <input type="hidden" name="評価" id="star-value">
-        </label>
-        <label>また飲みたい
-          <div class="toggle-group">
-            <button type="button" class="toggle-btn" data-field="また飲みたい" data-value="はい">はい</button>
-            <button type="button" class="toggle-btn" data-field="また飲みたい" data-value="いいえ">いいえ</button>
-          </div>
-          <input type="hidden" name="また飲みたい" id="drink-again-value">
-        </label>
-        <label>推薦度
-          <select name="推薦度"><option value="">選択してください</option></select>
-        </label>
-      </div>
-    </section>
+      <!-- 味・口感 -->
+      <section class="accordion" data-key="taste">
+        <button type="button" class="accordion-header">
+          👅 味 · 口 感 <span class="badge"></span><span class="arrow">▼</span>
+        </button>
+        <div class="accordion-body hidden">
+          <label>口 腔 濃 度
+            <select name="口腔濃度"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>前 調
+            <input type="text" name="前調" placeholder="例：苦味、甘味">
+          </label>
+          <label>中 調
+            <input type="text" name="中調" placeholder="例：花香、まろやか">
+          </label>
+          <label>後 調
+            <input type="text" name="後調" placeholder="例：甘み、余韻">
+          </label>
+          <label>水 含 香
+            <input type="text" name="水含香" placeholder="例：あり、なし">
+          </label>
+          <label>水 含 香 種 類
+            <input type="text" name="水含香種類" placeholder="例：花香、果香">
+          </label>
+          <label>回 甘
+            <select name="回甘"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>回 甘 持 続
+            <input type="text" name="回甘持続" placeholder="例：長、中、短">
+          </label>
+          <label>生 津
+            <select name="生津"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>生 津 持 続
+            <input type="text" name="生津持続" placeholder="例：長、中、短">
+          </label>
+        </div>
+      </section>
 
-    <!-- 写真 -->
-    <section class="accordion open" data-key="photo">
-      <button type="button" class="accordion-header">
-        📷 写真 <span class="badge"></span><span class="arrow">▲</span>
-      </button>
-      <div class="accordion-body">
-        <div class="photo-row">
-          <div class="photo-box" id="photo-box-1">
-            <input type="file" name="photo1" id="photo1" accept="image/*" capture="environment" class="photo-input">
-            <label for="photo1" class="photo-label">
-              <span class="photo-icon">📸</span>
-              <span>写真① 茶葉・外観</span>
-            </label>
-            <img id="photo1-preview" class="photo-preview hidden">
-          </div>
-          <div class="photo-box" id="photo-box-2">
-            <input type="file" name="photo2" id="photo2" accept="image/*" capture="environment" class="photo-input">
-            <label for="photo2" class="photo-label">
-              <span class="photo-icon">📸</span>
-              <span>写真② 水色・茶湯</span>
-            </label>
-            <img id="photo2-preview" class="photo-preview hidden">
+      <!-- 喉韻 -->
+      <section class="accordion" data-key="throat">
+        <button type="button" class="accordion-header">
+          🌊 喉 韻 <span class="badge"></span><span class="arrow">▼</span>
+        </button>
+        <div class="accordion-body hidden">
+          <label>喉 韻
+            <select name="喉韻"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+          <label>喉 韻 の 強 さ
+            <input type="text" name="喉韻の強さ" placeholder="例：強、中、弱">
+          </label>
+          <label>身 体 反 応（複数選択可）
+            <div class="checkbox-group" id="身体反応-group"></div>
+          </label>
+        </div>
+      </section>
+
+      <!-- 総合評価 -->
+      <section class="accordion open" data-key="eval">
+        <button type="button" class="accordion-header">
+          ★ 總 合 評 價 <span class="badge"></span><span class="arrow">▲</span>
+        </button>
+        <div class="accordion-body">
+          <label>評 價
+            <div class="star-input" id="star-input">
+              <span data-v="1">★</span>
+              <span data-v="2">★</span>
+              <span data-v="3">★</span>
+              <span data-v="4">★</span>
+              <span data-v="5">★</span>
+            </div>
+            <input type="hidden" name="評価" id="star-value">
+          </label>
+          <label>再 飲 希 望
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" data-field="また飲みたい" data-value="はい">是</button>
+              <button type="button" class="toggle-btn" data-field="また飲みたい" data-value="いいえ">否</button>
+            </div>
+            <input type="hidden" name="また飲みたい" id="drink-again-value">
+          </label>
+          <label>推 薦 度
+            <select name="推薦度"><option value="">選 択 し て く だ さ い</option></select>
+          </label>
+        </div>
+      </section>
+
+      <!-- 写真 -->
+      <section class="accordion open" data-key="photo">
+        <button type="button" class="accordion-header">
+          📷 寫 真 <span class="badge"></span><span class="arrow">▲</span>
+        </button>
+        <div class="accordion-body">
+          <div class="photo-row">
+            <div class="photo-box">
+              <input type="file" name="photo1" id="photo1" accept="image/*" capture="environment" class="photo-input">
+              <label for="photo1" class="photo-label">
+                <span class="photo-icon">📸</span>
+                <span>寫 真 ①<br>茶 葉 · 外 觀</span>
+              </label>
+              <img id="photo1-preview" class="photo-preview hidden">
+            </div>
+            <div class="photo-box">
+              <input type="file" name="photo2" id="photo2" accept="image/*" capture="environment" class="photo-input">
+              <label for="photo2" class="photo-label">
+                <span class="photo-icon">📸</span>
+                <span>寫 真 ②<br>水 色 · 茶 湯</span>
+              </label>
+              <img id="photo2-preview" class="photo-preview hidden">
+            </div>
           </div>
         </div>
+      </section>
+
+      <!-- メモ -->
+      <section class="accordion open" data-key="memo">
+        <button type="button" class="accordion-header">
+          📝 覺 書 · 備 忘 <span class="badge"></span><span class="arrow">▲</span>
+        </button>
+        <div class="accordion-body">
+          <label>
+            <textarea name="メモ" rows="5" placeholder="お茶の印象、次回試したいこと、入手先など自由に記入"></textarea>
+          </label>
+        </div>
+      </section>
+
+      <div class="form-footer">
+        <div id="save-status"></div>
+        <button type="submit" class="btn-save">保 存 記 錄</button>
       </div>
-    </section>
 
-    <!-- メモ -->
-    <section class="accordion open" data-key="memo">
-      <button type="button" class="accordion-header">
-        📝 覚書・メモ <span class="badge"></span><span class="arrow">▲</span>
-      </button>
-      <div class="accordion-body">
-        <label>
-          <textarea name="メモ" rows="5" placeholder="お茶の印象、次回試したいこと、入手先など自由に記入"></textarea>
-        </label>
-      </div>
-    </section>
-
-    <div class="form-footer">
-      <div id="save-status"></div>
-      <button type="submit" class="btn-save">保　存　す　る</button>
-    </div>
-
-  </form>
+    </form>
+  </div>
 
   <script src="/static/js/db.js"></script>
   <script src="/static/js/sync.js"></script>

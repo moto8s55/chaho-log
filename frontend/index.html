@@ -3,30 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>茶譜ログ</title>
+  <title>品茗手帖 · 上海茶館</title>
   <link rel="manifest" href="/static/manifest.json">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-  <header>
-    <h1>🍵 茶譜ログ</h1>
-    <a href="/record" class="btn-record">＋ 新しく記録する</a>
-  </header>
+  <div class="outer-frame">
+    <span class="corner-bl"></span>
+    <span class="corner-br"></span>
 
-  <div id="map"></div>
+    <header>
+      <div class="header-deco">茶</div>
+      <div class="header-center">
+        <div class="header-title">品 茗 手 帖</div>
+        <div class="header-sub">SHANGHAI TEA HOUSE  ·  中 國 茶 産 地 圖</div>
+      </div>
+      <a href="/record" class="btn-record">＋ 新 記 錄</a>
+    </header>
 
-  <div id="popup-overlay" class="hidden">
-    <div id="popup">
-      <button id="popup-close">✕</button>
-      <h2 id="popup-region"></h2>
-      <ul id="popup-list"></ul>
+    <div id="map"></div>
+
+    <div id="popup-overlay" class="hidden">
+      <div id="popup">
+        <button id="popup-close">✕ 閉</button>
+        <h2 id="popup-region"></h2>
+        <ul id="popup-list"></ul>
+      </div>
     </div>
-  </div>
 
-  <div id="sync-bar" class="hidden">
-    <span id="sync-count"></span>件のオフライン記録があります
-    <button id="sync-btn">今すぐ同期する</button>
+    <div id="sync-bar" class="hidden">
+      <span>未 送 信 記 錄：<span id="sync-count"></span> 件</span>
+      <button id="sync-btn">今 す ぐ 同 期</button>
+    </div>
+
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
