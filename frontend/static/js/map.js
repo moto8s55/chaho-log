@@ -1,21 +1,24 @@
+// この地図画像の地理的範囲（北西端→南東端）
+const MAP_BOUNDS = [
+  [52, 94],    // 北西
+  [15, 126],   // 南東
+];
+
 const map = L.map('map', {
-  minZoom: 3,
-  maxZoom: 9,
-}).setView([30, 108], 5);
+  minZoom: 4,
+  maxZoom: 8,
+  zoomControl: true,
+});
 
-// ── ベースタイル（CartoDB Voyager：クリーンな地図）──
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-  attribution: '© OpenStreetMap contributors © CARTO',
-  subdomains: 'abcd',
-  maxZoom: 20,
-}).addTo(map);
+// 地図をオーバーレイ範囲に合わせる
+map.fitBounds(MAP_BOUNDS);
 
-// ── 省境強調オーバーレイ（CartoDB Positron ラベルなし）──
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
-  attribution: '',
-  subdomains: 'abcd',
-  opacity: 0.4,
-}).addTo(map);
+// ── 地図画像オーバーレイ ──
+L.imageOverlay(
+  '/static/images/china_tea_map.png',
+  MAP_BOUNDS,
+  { opacity: 1.0, interactive: false }
+).addTo(map);
 
 async function loadMap() {
   const [records, regions] = await Promise.all([

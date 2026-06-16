@@ -107,7 +107,7 @@ header {
 #map {
   height: calc(100vh - 62px);
   width: 100%;
-  filter: sepia(75%) saturate(65%) hue-rotate(5deg) brightness(88%) contrast(95%);
+  background: #2C2416;
 }
 
 /* ── Popup ── */
