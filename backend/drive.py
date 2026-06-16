@@ -1,19 +1,15 @@
-from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
+from auth import get_credentials
 import io
 import os
 
-SERVICE_ACCOUNT_FILE = os.environ.get("SERVICE_ACCOUNT_FILE", "service_account.json")
 DRIVE_FOLDER_ID = os.environ.get("DRIVE_FOLDER_ID", "")
 SCOPES = ["https://www.googleapis.com/auth/drive.file"]
 
 
 def _service():
-    creds = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES
-    )
-    return build("drive", "v3", credentials=creds)
+    return build("drive", "v3", credentials=get_credentials(SCOPES))
 
 
 def upload_photo(image_bytes: bytes, filename: str) -> str:

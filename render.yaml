@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: chaho-log
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SPREADSHEET_ID
+        value: 1PxEh2tewlrDwf2yPgpAOAlh3cIOPL1GuIROmP4Ad5pM
+      - key: DRIVE_FOLDER_ID
+        value: 1TXz71w-kjAFOd3ntKD1MArDkwgPM3dIH
+      - key: SERVICE_ACCOUNT_FILE
+        value: service_account.json

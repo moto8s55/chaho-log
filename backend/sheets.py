@@ -1,9 +1,8 @@
-from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from auth import get_credentials
 import os
 
 SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID", "")
-SERVICE_ACCOUNT_FILE = os.environ.get("SERVICE_ACCOUNT_FILE", "service_account.json")
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 COLUMNS = [
@@ -21,10 +20,7 @@ COLUMNS = [
 
 
 def _service():
-    creds = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES
-    )
-    return build("sheets", "v4", credentials=creds)
+    return build("sheets", "v4", credentials=get_credentials(SCOPES))
 
 
 def get_next_no(service):
