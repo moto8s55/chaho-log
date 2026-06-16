@@ -1,31 +1,21 @@
-// 中国茶主産地図の地理的範囲（画像の四隅に対応する緯度経度）
-// 北西端 → 南東端
-const MAP_BOUNDS = [
-  [50.5, 96.0],   // 北西（内モンゴル・新疆付近）
-  [17.5, 123.5],  // 南東（海南島・台湾付近）
-];
-
 const map = L.map('map', {
-  crs: L.CRS.EPSG3857,
-  minZoom: 4,
-  maxZoom: 8,
-}).setView([30, 110], 5);
+  minZoom: 3,
+  maxZoom: 9,
+}).setView([30, 108], 5);
 
-// ── ベースマップ（薄く敷く）──
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors',
-  opacity: 0.08,
+// ── ベースタイル（CartoDB Voyager：クリーンな地図）──
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap contributors © CARTO',
+  subdomains: 'abcd',
+  maxZoom: 20,
 }).addTo(map);
 
-// ── 中国茶産地図オーバーレイ ──
-L.imageOverlay(
-  '/static/images/china_tea_map.jpg',
-  MAP_BOUNDS,
-  { opacity: 0.88, interactive: false }
-).addTo(map);
-
-// 地図の表示範囲をオーバーレイに合わせる
-map.fitBounds(MAP_BOUNDS);
+// ── 省境強調オーバーレイ（CartoDB Positron ラベルなし）──
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+  attribution: '',
+  subdomains: 'abcd',
+  opacity: 0.4,
+}).addTo(map);
 
 async function loadMap() {
   const [records, regions] = await Promise.all([
