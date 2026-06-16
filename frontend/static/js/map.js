@@ -8,9 +8,11 @@ const map = L.map('map', {
   minZoom: 4,
   maxZoom: 8,
   zoomControl: true,
+  maxBounds: MAP_BOUNDS,
+  maxBoundsViscosity: 1.0,
 });
 
-// 地図をオーバーレイ範囲に合わせる
+// 地図をオーバーレイ範囲に固定
 map.fitBounds(MAP_BOUNDS);
 
 // ── 地図画像オーバーレイ ──
