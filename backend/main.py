@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Renderではリポジトリルートから起動するためパスを追加
+sys.path.insert(0, os.path.dirname(__file__))
+
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -11,6 +17,9 @@ from regions import REGIONS, DROPDOWNS
 from sheets import append_record, get_all_records
 from drive import upload_photo
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
+
 app = FastAPI()
 
 app.add_middleware(
@@ -20,7 +29,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory="../frontend/static"), name="static")
+app.mount("/static", StaticFiles(directory=os.path.join(FRONTEND_DIR, "static")), name="static")
 
 
 def compress_image(data: bytes, max_px: int = 800, quality: int = 70) -> bytes:
@@ -71,11 +80,11 @@ async def create_record(
     return {"status": "ok", "no": no}
 
 
-@app.get("/")
-def index():
-    return FileResponse("../frontend/index.html")
-
-
 @app.get("/record")
 def record_page():
-    return FileResponse("../frontend/record.html")
+    return FileResponse(os.path.join(FRONTEND_DIR, "record.html"))
+
+
+@app.get("/")
+def index():
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
