@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>茶譜ログ</title>
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🍵 茶譜ログ</h1>
+    <a href="/record" class="btn-record">＋ 新しく記録する</a>
+  </header>
+
+  <div id="map"></div>
+
+  <div id="popup-overlay" class="hidden">
+    <div id="popup">
+      <button id="popup-close">✕</button>
+      <h2 id="popup-region"></h2>
+      <ul id="popup-list"></ul>
+    </div>
+  </div>
+
+  <div id="sync-bar" class="hidden">
+    <span id="sync-count"></span>件のオフライン記録があります
+    <button id="sync-btn">今すぐ同期する</button>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/static/js/db.js"></script>
+  <script src="/static/js/sync.js"></script>
+  <script src="/static/js/map.js"></script>
+</body>
+</html>
