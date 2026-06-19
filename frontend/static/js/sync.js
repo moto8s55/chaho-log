@@ -18,9 +18,9 @@ async function syncPending() {
         await deletePending(item.id);
         synced++;
       } else {
-        const text = await res.text().catch(() => res.status);
+        const text = await res.text().catch(() => String(res.status));
         console.error('sync failed:', res.status, text);
-        lastError = `サーバーエラー ${res.status}`;
+        lastError = `サーバーエラー ${res.status}: ${text.slice(0, 200)}`;
       }
     } catch (e) {
       console.error('sync error:', e);
