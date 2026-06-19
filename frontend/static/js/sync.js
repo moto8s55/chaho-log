@@ -5,6 +5,7 @@ async function syncPending() {
   if (items.length === 0) return 0;
 
   let synced = 0;
+  let lastError = null;
   for (const item of items) {
     try {
       const fd = new FormData();
@@ -16,10 +17,17 @@ async function syncPending() {
       if (res.ok) {
         await deletePending(item.id);
         synced++;
+      } else {
+        const text = await res.text().catch(() => res.status);
+        console.error('sync failed:', res.status, text);
+        lastError = `サーバーエラー ${res.status}`;
       }
-    } catch (_) { /* offline, skip */ }
+    } catch (e) {
+      console.error('sync error:', e);
+      lastError = e.message || 'ネットワークエラー';
+    }
   }
-  return synced;
+  return { synced, lastError };
 }
 
 async function updateSyncBar() {
@@ -43,17 +51,22 @@ document.addEventListener('DOMContentLoaded', () => {
     syncBtn.addEventListener('click', async () => {
       syncBtn.textContent = '同期中…';
       syncBtn.disabled = true;
-      const n = await syncPending();
+      const { synced, lastError } = await syncPending();
       await updateSyncBar();
       syncBtn.textContent = '今すぐ同期する';
       syncBtn.disabled = false;
-      if (n > 0) location.reload();
+      if (synced > 0) {
+        location.reload();
+      } else if (lastError) {
+        alert(`同期失敗: ${lastError}\n\nブラウザのコンソール（開発者ツール）で詳細を確認してください。`);
+      }
     });
   }
 });
 
 // Auto sync when coming online
 window.addEventListener('online', async () => {
-  await syncPending();
+  const { synced } = await syncPending();
   await updateSyncBar();
+  if (synced > 0) location.reload();
 });
