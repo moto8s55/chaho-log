@@ -90,6 +90,11 @@ def record_page():
     return FileResponse(os.path.join(FRONTEND_DIR, "record.html"))
 
 
+@app.get("/list")
+def list_page():
+    return FileResponse(os.path.join(FRONTEND_DIR, "list.html"))
+
+
 @app.get("/")
 def index():
     return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))

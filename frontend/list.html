@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>記 錄 一 覧 · 品茗手帖</title>
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    .list-page { padding-bottom: 40px; }
+
+    .search-bar {
+      margin: 14px 16px 0;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .search-bar input {
+      flex: 1;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      font-size: 15px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Serif JP', serif;
+      border-radius: 0;
+      appearance: none;
+    }
+    .search-bar input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .search-bar input::placeholder { color: var(--text2); opacity: 0.6; }
+
+    .filter-row {
+      margin: 8px 16px 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-row select {
+      flex: 1;
+      min-width: 120px;
+      border: 1px solid var(--border);
+      padding: 8px 30px 8px 10px;
+      font-size: 13px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Serif JP', serif;
+      border-radius: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%23A07228'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+    .filter-row select:focus { outline: none; border-color: var(--gold); }
+
+    .result-count {
+      margin: 10px 16px 2px;
+      font-size: 12px;
+      color: var(--text2);
+      letter-spacing: 0.15em;
+      font-family: 'Noto Serif SC', serif;
+    }
+
+    .record-list {
+      margin: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-top: none;
+    }
+
+    .record-card {
+      background: var(--bg);
+      border-top: 1px solid rgba(184,150,90,0.4);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: background 0.1s;
+      position: relative;
+    }
+    .record-card:first-child { border-top: 1px solid var(--border); }
+    .record-card:active { background: var(--bg2); }
+
+    .card-top {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+    .card-no {
+      font-size: 11px;
+      color: var(--text2);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      font-family: 'Noto Serif JP', serif;
+    }
+    .card-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.1em;
+      flex: 1;
+      font-family: 'Noto Serif SC', serif;
+    }
+    .card-stars {
+      color: var(--gold);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--text2);
+      letter-spacing: 0.08em;
+      font-family: 'Noto Serif JP', serif;
+    }
+    .card-meta span::before {
+      content: '◆ ';
+      font-size: 8px;
+      color: var(--gold2);
+    }
+    .card-date {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text2);
+      opacity: 0.7;
+      white-space: nowrap;
+    }
+
+    .card-detail {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.9;
+      letter-spacing: 0.05em;
+    }
+    .card-detail.open { display: block; }
+    .card-detail dl {
+      display: grid;
+      grid-template-columns: 7em 1fr;
+      gap: 2px 8px;
+    }
+    .card-detail dt {
+      color: var(--text2);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      font-family: 'Noto Serif SC', serif;
+      padding-top: 2px;
+    }
+    .card-detail dd { margin: 0; }
+    .card-photos {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .card-photos img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text2);
+      font-size: 15px;
+      letter-spacing: 0.2em;
+      font-family: 'Noto Serif SC', serif;
+      border: 1px solid var(--border);
+      margin: 0 16px;
+      border-top: none;
+      background: var(--bg);
+    }
+
+    .list-header-bar {
+      margin: 14px 16px 0;
+      border-top: 2px solid var(--gold);
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .list-header-bar h2 {
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      color: var(--text2);
+      font-weight: 400;
+      font-family: 'Noto Serif SC', serif;
+    }
+    .sort-label {
+      font-size: 11px;
+      color: var(--text2);
+      letter-spacing: 0.1em;
+      font-family: 'Noto Serif JP', serif;
+    }
+
+    @media (min-width: 600px) {
+      .search-bar, .filter-row, .result-count, .record-list, .list-header-bar {
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
+</head>
+<body class="list-page">
+  <div class="outer-frame">
+    <span class="corner-bl"></span>
+    <span class="corner-br"></span>
+
+    <header>
+      <a href="/" class="btn-back">← 地 圖</a>
+      <div class="header-center">
+        <div class="header-title">記 錄 一 覧</div>
+        <div class="header-sub">品 茗 手 帖  ·  上 海 茶 館</div>
+      </div>
+      <div class="header-deco">覧</div>
+    </header>
+
+    <div class="search-bar">
+      <input type="search" id="search-input" placeholder="茶 葉 名 を 検 索…">
+    </div>
+
+    <div class="filter-row">
+      <select id="filter-region">
+        <option value="">産 地  す べ て</option>
+      </select>
+      <select id="filter-type">
+        <option value="">茶 類  す べ て</option>
+      </select>
+    </div>
+
+    <div class="list-header-bar">
+      <h2>― 茶 録 一 覧 ―</h2>
+      <span class="sort-label">新 着 順</span>
+    </div>
+
+    <div class="result-count" id="result-count"></div>
+    <div class="record-list" id="record-list"></div>
+
+  </div>
+
+  <script>
+    let allRecords = [];
+
+    const DETAIL_FIELDS = [
+      ['場所', '場 所'],
+      ['天気', '天 氣'],
+      ['海抜', '海 拔'],
+      ['茶樹年齢', '茶 樹 年 齢'],
+      ['水温(℃)', '水 温'],
+      ['茶葉量(g)', '茶 葉 量'],
+      ['注湯量(ml)', '注 湯 量'],
+      ['水色', '水 色'],
+      ['透明度', '透 明 度'],
+      ['香りの種類', '香 り'],
+      ['前調', '前 調'],
+      ['中調', '中 調'],
+      ['後調', '後 調'],
+      ['回甘', '回 甘'],
+      ['生津', '生 津'],
+      ['喉韻', '喉 韻'],
+      ['メモ', '覺 書'],
+    ];
+
+    function stars(n) {
+      const num = Number(n) || 0;
+      return num > 0 ? '★'.repeat(num) + '☆'.repeat(5 - num) : '';
+    }
+
+    function renderCard(rec) {
+      const name = rec['茶葉名'] || '（名 称 未 入 力）';
+      const region = rec['産地'] || '';
+      const type = rec['茶類'] || '';
+      const rating = stars(rec['評価']);
+      const date = rec['記録日'] || '';
+      const no = rec['No.'] || '';
+
+      const detailRows = DETAIL_FIELDS
+        .filter(([k]) => rec[k])
+        .map(([k, label]) => `<dt>${label}</dt><dd>${rec[k]}</dd>`)
+        .join('');
+
+      const photos = [rec['写真①URL'], rec['写真②URL']]
+        .filter(Boolean)
+        .map(url => `<img src="${url}" loading="lazy">`)
+        .join('');
+
+      return `
+        <div class="record-card" onclick="toggleDetail(this)">
+          <div class="card-top">
+            <span class="card-no">No.${no}</span>
+            <span class="card-name">${name}</span>
+            <span class="card-stars">${rating}</span>
+          </div>
+          <div class="card-meta">
+            ${region ? `<span>${region}</span>` : ''}
+            ${type ? `<span>${type}</span>` : ''}
+            ${rec['また飲みたい'] === 'はい' ? '<span>再 飲 希 望</span>' : ''}
+            <span class="card-date">${date}</span>
+          </div>
+          <div class="card-detail">
+            ${detailRows ? `<dl>${detailRows}</dl>` : ''}
+            ${photos ? `<div class="card-photos">${photos}</div>` : ''}
+            ${!detailRows && !photos ? '<span style="color:var(--text2);font-size:12px">詳 細 情 報 な し</span>' : ''}
+          </div>
+        </div>`;
+    }
+
+    function toggleDetail(card) {
+      card.querySelector('.card-detail').classList.toggle('open');
+    }
+
+    function applyFilters() {
+      const q = document.getElementById('search-input').value.trim().toLowerCase();
+      const region = document.getElementById('filter-region').value;
+      const type = document.getElementById('filter-type').value;
+
+      const filtered = allRecords.filter(r => {
+        if (q && !(r['茶葉名'] || '').toLowerCase().includes(q)) return false;
+        if (region && r['産地'] !== region) return false;
+        if (type && r['茶類'] !== type) return false;
+        return true;
+      });
+
+      const list = document.getElementById('record-list');
+      const count = document.getElementById('result-count');
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="empty-state">該 当 す る 記 錄 が あ り ま せ ん</div>';
+        count.textContent = '';
+      } else {
+        list.innerHTML = filtered.map(renderCard).join('');
+        count.textContent = `${filtered.length} 件`;
+      }
+    }
+
+    async function loadRecords() {
+      const list = document.getElementById('record-list');
+      list.innerHTML = '<div class="empty-state">読 み 込 み 中…</div>';
+
+      try {
+        const records = await fetch('/api/records').then(r => r.json());
+        allRecords = records.slice().reverse(); // 新着順
+
+        // フィルタの選択肢を構築
+        const regions = [...new Set(records.map(r => r['産地']).filter(Boolean))].sort();
+        const types   = [...new Set(records.map(r => r['茶類']).filter(Boolean))].sort();
+
+        const regionSel = document.getElementById('filter-region');
+        regions.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v; o.textContent = v;
+          regionSel.appendChild(o);
+        });
+
+        const typeSel = document.getElementById('filter-type');
+        types.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v; o.textContent = v;
+          typeSel.appendChild(o);
+        });
+
+        applyFilters();
+      } catch (e) {
+        list.innerHTML = '<div class="empty-state">読 み 込 み に 失 敗 し ま し た</div>';
+      }
+    }
+
+    document.getElementById('search-input').addEventListener('input', applyFilters);
+    document.getElementById('filter-region').addEventListener('change', applyFilters);
+    document.getElementById('filter-type').addEventListener('change', applyFilters);
+
+    loadRecords();
+  </script>
+</body>
+</html>
