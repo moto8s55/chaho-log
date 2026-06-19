@@ -2,7 +2,7 @@ from googleapiclient.discovery import build
 from auth import get_credentials
 import os
 
-SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID", "")
+SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID", "1PxEh2tewlrDwf2yPgpAOAlh3cIOPL1GuIROmP4Ad5pM")
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 # 記録一覧シートの列（既存シートに合わせた順序）

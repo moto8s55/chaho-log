@@ -1,10 +1,11 @@
 import sys
 import os
+import traceback
 
 # Renderではリポジトリルートから起動するためパスを追加
 sys.path.insert(0, os.path.dirname(__file__))
 
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -76,7 +77,11 @@ async def create_record(
             url = upload_photo(compressed, f"photo_{no}_{i}.jpg")
             photo_urls.append(url)
 
-    no = append_record(record, photo_urls)
+    try:
+        no = append_record(record, photo_urls)
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
     return {"status": "ok", "no": no}
 
 
