@@ -5,8 +5,9 @@ const MAP_BOUNDS = [
 ];
 
 const map = L.map('map', {
-  minZoom: 4,
-  maxZoom: 8,
+  crs: L.CRS.EPSG4326,
+  minZoom: 1,
+  maxZoom: 6,
   zoomControl: true,
   maxBounds: MAP_BOUNDS,
   maxBoundsViscosity: 1.0,
