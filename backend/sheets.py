@@ -77,6 +77,39 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
         }}]}
     ).execute()
 
+    # テンプレートの例示データをクリア（ラベル行は残す）
+    clear_ranges = [
+        f"{sheet_title}!G3",
+        f"{sheet_title}!C6:G6",
+        f"{sheet_title}!C7:G7",
+        f"{sheet_title}!C8:I8",
+        f"{sheet_title}!C9:I9",
+        f"{sheet_title}!D12:G12",
+        f"{sheet_title}!D13:G13",
+        f"{sheet_title}!C16:I16",
+        f"{sheet_title}!C17:I17",
+        f"{sheet_title}!D18:G18",
+        f"{sheet_title}!D21:G21",
+        f"{sheet_title}!D22:I22",
+        f"{sheet_title}!D25:I25",
+        f"{sheet_title}!D26:I26",
+        f"{sheet_title}!D27:I27",
+        f"{sheet_title}!D30:I30",
+        f"{sheet_title}!D31:I31",
+        f"{sheet_title}!D32:I32",
+        f"{sheet_title}!D33:I33",
+        f"{sheet_title}!D34:I34",
+        f"{sheet_title}!D37:I37",
+        f"{sheet_title}!D38:I38",
+        f"{sheet_title}!C41:I41",
+        f"{sheet_title}!D42:G42",
+        f"{sheet_title}!B46:I50",
+    ]
+    service.spreadsheets().values().batchClear(
+        spreadsheetId=SPREADSHEET_ID,
+        body={"ranges": clear_ranges}
+    ).execute()
+
     def v(key, default=""):
         return str(record.get(key) or default)
 
