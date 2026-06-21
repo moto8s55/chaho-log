@@ -80,6 +80,40 @@
         </div>
       </section>
 
+      <!-- 茶器情報 -->
+      <section class="accordion" data-key="chaki">
+        <button type="button" class="accordion-header">
+          ― 茶 器 情 報 ― <span class="badge"></span><span class="arrow">▼</span>
+        </button>
+        <div class="accordion-body hidden">
+          <label>茶 器 名
+            <div class="field-with-camera">
+              <input type="text" name="茶器名" placeholder="例：紫砂壺・白磁蓋碗">
+              <input type="file" name="photo3" id="photo3" accept="image/*" capture="environment" class="photo-input">
+              <label for="photo3" class="camera-inline-btn" title="茶器を撮影">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+              </label>
+            </div>
+            <img id="photo3-preview" class="photo-preview hidden" style="margin-top:8px">
+          </label>
+          <label>窯 元 · 作 家
+            <input type="text" name="窯元/作家" placeholder="例：呉均窯・人間国宝">
+          </label>
+          <label>茶 器 産 地
+            <input type="text" name="茶器産地" placeholder="例：宜興・景徳鎮">
+          </label>
+          <label>茶 器 年 代
+            <input type="text" name="茶器年代" placeholder="例：民國期・現代">
+          </label>
+          <label>容 量（ml）
+            <input type="number" name="容量(ml)" placeholder="例：120" min="0">
+          </label>
+        </div>
+      </section>
+
       <!-- 淹れ方 -->
       <section class="accordion" data-key="brew">
         <button type="button" class="accordion-header">
@@ -277,25 +311,39 @@
               <input type="file" name="photo2" id="photo2" accept="image/*" capture="environment" class="photo-input">
               <label for="photo2" class="photo-label">
                 <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <!-- 蛇腹カメラ本体 -->
                   <rect x="6" y="14" width="42" height="26" rx="2" stroke="#6B4C22" stroke-width="1.5" fill="#EDE0C4"/>
-                  <!-- 蛇腹部分 -->
                   <line x1="14" y1="14" x2="14" y2="40" stroke="#6B4C22" stroke-width="0.8"/>
                   <line x1="19" y1="14" x2="19" y2="40" stroke="#6B4C22" stroke-width="0.8"/>
                   <line x1="24" y1="14" x2="24" y2="40" stroke="#6B4C22" stroke-width="0.8"/>
-                  <!-- レンズ部 -->
                   <rect x="28" y="17" width="16" height="20" rx="1" stroke="#6B4C22" stroke-width="1" fill="#D4C49A"/>
                   <circle cx="36" cy="27" r="7" stroke="#6B4C22" stroke-width="1.2" fill="#B8965A" fill-opacity="0.3"/>
                   <circle cx="36" cy="27" r="4" stroke="#6B4C22" stroke-width="1" fill="#3A2810" fill-opacity="0.5"/>
-                  <!-- シャッターボタン -->
                   <circle cx="10" cy="12" r="2.5" stroke="#6B4C22" stroke-width="1" fill="#B8965A"/>
-                  <!-- ストラップ -->
                   <path d="M6 18 Q3 14 6 10" stroke="#6B4C22" stroke-width="1" fill="none"/>
                   <path d="M48 18 Q51 14 48 10" stroke="#6B4C22" stroke-width="1" fill="none"/>
                 </svg>
                 <span>寫 眞 ②<br>水 色 · 茶 湯</span>
               </label>
               <img id="photo2-preview" class="photo-preview hidden">
+            </div>
+
+            <!-- 写真④：設え -->
+            <div class="photo-box">
+              <input type="file" name="photo4" id="photo4" accept="image/*" capture="environment" class="photo-input">
+              <label for="photo4" class="photo-label">
+                <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- 盆栽・設え風アイコン -->
+                  <rect x="10" y="38" width="34" height="8" rx="1" stroke="#6B4C22" stroke-width="1.2" fill="#D4C49A"/>
+                  <rect x="16" y="32" width="22" height="8" rx="1" stroke="#6B4C22" stroke-width="1" fill="#EDE0C4"/>
+                  <line x1="27" y1="32" x2="27" y2="18" stroke="#6B4C22" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M27 22 Q18 14 12 16 Q16 24 27 22" stroke="#6B4C22" stroke-width="1" fill="#EDE0C4"/>
+                  <path d="M27 18 Q36 10 42 13 Q38 21 27 18" stroke="#6B4C22" stroke-width="1" fill="#EDE0C4"/>
+                  <path d="M27 26 Q20 20 15 22 Q18 28 27 26" stroke="#6B4C22" stroke-width="1" fill="#D4C49A"/>
+                  <circle cx="27" cy="17" r="2" fill="#6B4C22" opacity="0.4"/>
+                </svg>
+                <span>寫 眞 ④<br>設 え</span>
+              </label>
+              <img id="photo4-preview" class="photo-preview hidden">
             </div>
 
           </div>

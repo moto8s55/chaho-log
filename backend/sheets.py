@@ -10,8 +10,10 @@ TEMPLATE_SHEET_ID = 877446008  # No.0001 シートのID
 COLUMNS = [
     "No.", "記録日", "茶葉名", "産地", "茶類", "年份",
     "水温(℃)", "評価", "また飲みたい", "メモ",
-    "写真①URL", "写真②URL",
+    "写真①URL", "写真②URL", "写真③URL", "写真④URL",
     "場所", "天気", "茶号/品番", "海抜", "茶山環境", "茶樹年齢", "樹形", "土質",
+    # 茶器情報
+    "茶器名", "窯元/作家", "茶器産地", "茶器年代", "容量(ml)",
     "茶壺材質", "水質", "茶葉量(g)", "注湯量(ml)", "出汤速度", "冲泡次数(煎)", "焼水方式",
     "水色", "透明度", "茶葉形態",
     "香りの種類", "香りの強さ", "純粋度", "持続時間",
@@ -153,6 +155,8 @@ def append_record(record: dict, photo_urls: list):
             row[k] = v
     row["写真①URL"] = photo_urls[0] if len(photo_urls) > 0 else ""
     row["写真②URL"] = photo_urls[1] if len(photo_urls) > 1 else ""
+    row["写真③URL"] = photo_urls[2] if len(photo_urls) > 2 else ""
+    row["写真④URL"] = photo_urls[3] if len(photo_urls) > 3 else ""
 
     values = [[row[col] for col in COLUMNS]]
     service.spreadsheets().values().append(

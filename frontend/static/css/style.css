@@ -362,8 +362,32 @@ input:focus, select:focus, textarea:focus {
   color: var(--red);
 }
 
+/* ── Inline camera button ── */
+.field-with-camera {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.field-with-camera input[type="text"],
+.field-with-camera input[type="number"] {
+  flex: 1;
+}
+.camera-inline-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.camera-inline-btn:active { background: var(--bg3); }
+
 /* ── Photo ── */
-.photo-row { display: flex; gap: 12px; }
+.photo-row { display: flex; gap: 12px; flex-wrap: wrap; }
 .photo-box { flex: 1; }
 .photo-input { display: none; }
 .photo-label {

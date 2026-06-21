@@ -14,11 +14,11 @@ function openDB() {
   });
 }
 
-async function savePending(record, photo1Blob, photo2Blob) {
+async function savePending(record, photo1Blob, photo2Blob, photo3Blob, photo4Blob) {
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE, 'readwrite');
-    tx.objectStore(STORE).add({ record, photo1Blob, photo2Blob, savedAt: Date.now() });
+    tx.objectStore(STORE).add({ record, photo1Blob, photo2Blob, photo3Blob, photo4Blob, savedAt: Date.now() });
     tx.oncomplete = () => resolve();
     tx.onerror = e => reject(e.target.error);
   });

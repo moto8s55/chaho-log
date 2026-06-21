@@ -12,6 +12,8 @@ async function syncPending() {
       fd.append('record_json', JSON.stringify(item.record));
       if (item.photo1Blob) fd.append('photo1', new File([item.photo1Blob], 'photo1.jpg', { type: 'image/jpeg' }));
       if (item.photo2Blob) fd.append('photo2', new File([item.photo2Blob], 'photo2.jpg', { type: 'image/jpeg' }));
+      if (item.photo3Blob) fd.append('photo3', new File([item.photo3Blob], 'photo3.jpg', { type: 'image/jpeg' }));
+      if (item.photo4Blob) fd.append('photo4', new File([item.photo4Blob], 'photo4.jpg', { type: 'image/jpeg' }));
 
       const res = await fetch(`${API}/api/records`, { method: 'POST', body: fd });
       if (res.ok) {

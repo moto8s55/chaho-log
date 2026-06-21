@@ -65,11 +65,13 @@ async def create_record(
     record_json: str = Form(...),
     photo1: Optional[UploadFile] = File(None),
     photo2: Optional[UploadFile] = File(None),
+    photo3: Optional[UploadFile] = File(None),
+    photo4: Optional[UploadFile] = File(None),
 ):
     record = json.loads(record_json)
     photo_urls = []
 
-    for i, photo in enumerate([photo1, photo2], 1):
+    for i, photo in enumerate([photo1, photo2, photo3, photo4], 1):
         if photo and photo.filename:
             raw = await photo.read()
             compressed = compress_image(raw)

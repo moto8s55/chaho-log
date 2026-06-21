@@ -108,6 +108,8 @@ function setupPhoto(inputId, previewId) {
 }
 setupPhoto('photo1', 'photo1-preview');
 setupPhoto('photo2', 'photo2-preview');
+setupPhoto('photo3', 'photo3-preview');
+setupPhoto('photo4', 'photo4-preview');
 
 // Compress image client-side
 function compressImage(file, maxPx = 800, quality = 0.7) {
@@ -141,7 +143,7 @@ document.getElementById('record-form').addEventListener('submit', async e => {
   const fd = new FormData(e.target);
   const record = {};
   for (const [k, v] of fd.entries()) {
-    if (['photo1', 'photo2'].includes(k)) continue;
+    if (['photo1', 'photo2', 'photo3', 'photo4'].includes(k)) continue;
     if (record[k]) {
       record[k] = [record[k], v].flat().join('、');
     } else {
@@ -151,8 +153,12 @@ document.getElementById('record-form').addEventListener('submit', async e => {
 
   const photo1File = document.getElementById('photo1').files[0];
   const photo2File = document.getElementById('photo2').files[0];
+  const photo3File = document.getElementById('photo3').files[0];
+  const photo4File = document.getElementById('photo4').files[0];
   const photo1Blob = photo1File ? await compressImage(photo1File) : null;
   const photo2Blob = photo2File ? await compressImage(photo2File) : null;
+  const photo3Blob = photo3File ? await compressImage(photo3File) : null;
+  const photo4Blob = photo4File ? await compressImage(photo4File) : null;
 
   if (navigator.onLine) {
     try {
@@ -160,6 +166,8 @@ document.getElementById('record-form').addEventListener('submit', async e => {
       postFd.append('record_json', JSON.stringify(record));
       if (photo1Blob) postFd.append('photo1', new File([photo1Blob], 'photo1.jpg', { type: 'image/jpeg' }));
       if (photo2Blob) postFd.append('photo2', new File([photo2Blob], 'photo2.jpg', { type: 'image/jpeg' }));
+      if (photo3Blob) postFd.append('photo3', new File([photo3Blob], 'photo3.jpg', { type: 'image/jpeg' }));
+      if (photo4Blob) postFd.append('photo4', new File([photo4Blob], 'photo4.jpg', { type: 'image/jpeg' }));
       const res = await fetch('/api/records', { method: 'POST', body: postFd });
       if (res.ok) {
         status.textContent = '✅ 送信しました！';
@@ -170,7 +178,7 @@ document.getElementById('record-form').addEventListener('submit', async e => {
   }
 
   // Offline: save locally
-  await savePending(record, photo1Blob, photo2Blob);
+  await savePending(record, photo1Blob, photo2Blob, photo3Blob, photo4Blob);
   status.textContent = '📱 端末に保存しました。電波のいい時に自動で送信されます。';
   btn.disabled = false;
   await updateSyncBar();
