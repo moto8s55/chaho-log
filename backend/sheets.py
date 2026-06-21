@@ -165,6 +165,11 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
         (f"{sheet_title}!G41", v("また飲みたい")),
         (f"{sheet_title}!D42", v("推薦度")),
         (f"{sheet_title}!B46", v("メモ")),
+        # 写真①〜④ IMAGE表示
+        (f"{sheet_title}!B52", f'=IMAGE("{photo_urls[0]}")' if len(photo_urls) > 0 and photo_urls[0] else ""),
+        (f"{sheet_title}!F52", f'=IMAGE("{photo_urls[1]}")' if len(photo_urls) > 1 and photo_urls[1] else ""),
+        (f"{sheet_title}!B57", f'=IMAGE("{photo_urls[2]}")' if len(photo_urls) > 2 and photo_urls[2] else ""),
+        (f"{sheet_title}!F57", f'=IMAGE("{photo_urls[3]}")' if len(photo_urls) > 3 and photo_urls[3] else ""),
     ]
 
     # まとめて一括更新
