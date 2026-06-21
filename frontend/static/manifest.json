@@ -1,11 +1,11 @@
 {
-  "name": "茶譜ログ",
-  "short_name": "茶譜ログ",
+  "name": "品茗手帖",
+  "short_name": "品茗手帖",
   "description": "中国茶の飲茶記録アプリ",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#faf8f3",
-  "theme_color": "#2e5339",
+  "background_color": "#D2C5A0",
+  "theme_color": "#1C3252",
   "icons": [
     { "src": "/static/images/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/static/images/icon-512.png", "sizes": "512x512", "type": "image/png" }

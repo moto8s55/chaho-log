@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 860">
+<rect width="680" height="860" fill="#D2C5A0"/>
+<rect width="680" height="860" fill="#BDA878" opacity="0.3"/>
+<rect x="24" y="24" width="632" height="812" fill="#7A9688"/>
+<rect x="24" y="24" width="632" height="812" fill="#8FAAA0" opacity="0.45"/>
+<rect x="24" y="24" width="632" height="812" fill="#D2C5A0" opacity="0.20"/>
+<ellipse cx="140" cy="180" rx="130" ry="100" fill="#A89060" opacity="0.12"/>
+<ellipse cx="570" cy="680" rx="110" ry="130" fill="#988040" opacity="0.15"/>
+<ellipse cx="340" cy="430" rx="280" ry="220" fill="#B8A878" opacity="0.09"/>
+<rect x="24" y="24" width="632" height="812" fill="none" stroke="#1C3252" stroke-width="9"/>
+<rect x="38" y="38" width="604" height="784" fill="none" stroke="#1C3252" stroke-width="2"/>
+<rect x="44" y="44" width="592" height="772" fill="none" stroke="#1C3252" stroke-width="0.7" opacity="0.5"/>
+<!-- 上部藍色帯 -->
+<rect x="24" y="24" width="632" height="170" fill="#1C3252"/>
+<!-- 中央花形 -->
+<g fill="#D2C5A0" stroke="#D2C5A0">
+  <line x1="340" y1="194" x2="340" y2="150" stroke="#D2C5A0" stroke-width="2"/>
+  <path d="M340 150 C336 138 328 130 324 124 C320 118 323 110 329 112 C334 114 337 124 340 132" fill="#D2C5A0"/>
+  <path d="M340 150 C344 138 352 130 356 124 C360 118 357 110 351 112 C346 114 343 124 340 132" fill="#D2C5A0"/>
+  <path d="M337 146 C328 135 316 130 312 134 C308 138 313 148 320 146 C327 144 333 138 337 146" fill="#D2C5A0"/>
+  <path d="M343 146 C352 135 364 130 368 134 C372 138 367 148 360 146 C353 144 347 138 343 146" fill="#D2C5A0"/>
+  <path d="M334 152 C320 146 308 148 306 156 C304 163 314 169 322 165 C330 161 333 155 334 152" fill="#D2C5A0"/>
+  <path d="M346 152 C360 146 372 148 374 156 C376 163 366 169 358 165 C350 161 347 155 346 152" fill="#D2C5A0"/>
+  <circle cx="340" cy="148" r="5" fill="#1C3252"/>
+  <circle cx="340" cy="148" r="2.5" fill="#D2C5A0"/>
+  <!-- 右側スクロール -->
+  <path d="M340 165 C360 160 378 148 388 134 C398 120 396 104 384 100 C372 96 362 106 368 118 C374 130 388 128 390 118 C392 108 382 102 376 108" fill="none" stroke="#D2C5A0" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M388 134 C400 126 414 126 416 134 C418 142 406 150 396 146 C388 142 385 136 388 134 Z" fill="#D2C5A0"/>
+  <path d="M376 108 C368 102 358 104 356 112 C354 120 362 128 370 124 C377 120 378 112 373 110 C368 108 364 112 366 116 C368 120 373 120 374 116 Z" fill="#D2C5A0"/>
+  <path d="M395 144 C412 136 430 122 440 108 C450 94 448 78 436 74 C424 70 415 82 421 94 C427 106 440 104 441 94" fill="none" stroke="#D2C5A0" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M440 108 C452 100 466 102 467 112 C468 122 455 128 446 122 C438 116 437 110 440 108 Z" fill="#D2C5A0"/>
+  <path d="M441 94 C434 87 424 89 422 97 C420 105 428 113 436 109 C442 105 443 97 438 95 C433 93 429 97 431 101 C433 105 438 104 438 101 Z" fill="#D2C5A0"/>
+  <path d="M466 120 C482 112 500 100 510 88 C520 76 517 62 505 60 C493 58 486 70 492 80" fill="none" stroke="#D2C5A0" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M510 88 C520 82 534 84 534 92 C534 100 522 106 514 101 C507 96 506 90 510 88 Z" fill="#D2C5A0"/>
+  <path d="M492 80 C485 73 476 75 475 82 C474 89 481 96 488 92 C494 89 494 82 490 81 C486 80 484 83 486 86 C488 89 492 88 492 86 Z" fill="#D2C5A0"/>
+  <path d="M534 100 C550 93 565 82 572 70 C578 58 573 46 562 46" fill="none" stroke="#D2C5A0" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M572 70 C580 64 591 66 591 74 C591 82 580 86 573 82 C567 78 567 72 572 70 Z" fill="#D2C5A0" opacity="0.9"/>
+  <path d="M562 46 C555 40 547 43 547 50 C547 57 554 62 560 58 C565 55 565 49 561 48 C558 47 556 50 558 53 C560 56 563 55 563 53 Z" fill="#D2C5A0" opacity="0.9"/>
+  <path d="M600 100 C608 92 618 88 622 92 C626 96 624 108 616 110 C608 112 600 106 600 100 Z" fill="#D2C5A0" opacity="0.85"/>
+  <circle cx="608" cy="97" r="4" fill="#D2C5A0" opacity="0.9"/>
+  <circle cx="608" cy="97" r="2" fill="#1C3252"/>
+  <!-- 左側スクロール（鏡像） -->
+  <path d="M340 165 C320 160 302 148 292 134 C282 120 284 104 296 100 C308 96 318 106 312 118 C306 130 292 128 290 118 C288 108 298 102 304 108" fill="none" stroke="#D2C5A0" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M292 134 C280 126 266 126 264 134 C262 142 274 150 284 146 C292 142 295 136 292 134 Z" fill="#D2C5A0"/>
+  <path d="M304 108 C312 102 322 104 324 112 C326 120 318 128 310 124 C303 120 302 112 307 110 C312 108 316 112 314 116 C312 120 307 120 306 116 Z" fill="#D2C5A0"/>
+  <path d="M285 144 C268 136 250 122 240 108 C230 94 232 78 244 74 C256 70 265 82 259 94 C253 106 240 104 239 94" fill="none" stroke="#D2C5A0" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M240 108 C228 100 214 102 213 112 C212 122 225 128 234 122 C242 116 243 110 240 108 Z" fill="#D2C5A0"/>
+  <path d="M239 94 C246 87 256 89 258 97 C260 105 252 113 244 109 C238 105 237 97 242 95 C247 93 251 97 249 101 C247 105 242 104 242 101 Z" fill="#D2C5A0"/>
+  <path d="M214 120 C198 112 180 100 170 88 C160 76 163 62 175 60 C187 58 194 70 188 80" fill="none" stroke="#D2C5A0" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M170 88 C160 82 146 84 146 92 C146 100 158 106 166 101 C173 96 174 90 170 88 Z" fill="#D2C5A0"/>
+  <path d="M188 80 C195 73 204 75 205 82 C206 89 199 96 192 92 C186 89 186 82 190 81 C194 80 196 83 194 86 C192 89 188 88 188 86 Z" fill="#D2C5A0"/>
+  <path d="M146 100 C130 93 115 82 108 70 C102 58 107 46 118 46" fill="none" stroke="#D2C5A0" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M108 70 C100 64 89 66 89 74 C89 82 100 86 107 82 C113 78 113 72 108 70 Z" fill="#D2C5A0" opacity="0.9"/>
+  <path d="M118 46 C125 40 133 43 133 50 C133 57 126 62 120 58 C115 55 115 49 119 48 C122 47 124 50 122 53 C120 56 117 55 117 53 Z" fill="#D2C5A0" opacity="0.9"/>
+  <path d="M80 100 C72 92 62 88 58 92 C54 96 56 108 64 110 C72 112 80 106 80 100 Z" fill="#D2C5A0" opacity="0.85"/>
+  <circle cx="72" cy="97" r="4" fill="#D2C5A0" opacity="0.9"/>
+  <circle cx="72" cy="97" r="2" fill="#1C3252"/>
+</g>
+<!-- 下部藍色帯 -->
+<rect x="24" y="666" width="632" height="170" fill="#1C3252"/>
+<g fill="#D2C5A0" stroke="#D2C5A0" transform="translate(0,860) scale(1,-1)">
+  <line x1="340" y1="194" x2="340" y2="150" stroke="#D2C5A0" stroke-width="2"/>
+  <path d="M340 150 C336 138 328 130 324 124 C320 118 323 110 329 112 C334 114 337 124 340 132" fill="#D2C5A0"/>
+  <path d="M340 150 C344 138 352 130 356 124 C360 118 357 110 351 112 C346 114 343 124 340 132" fill="#D2C5A0"/>
+  <path d="M337 146 C328 135 316 130 312 134 C308 138 313 148 320 146 C327 144 333 138 337 146" fill="#D2C5A0"/>
+  <path d="M343 146 C352 135 364 130 368 134 C372 138 367 148 360 146 C353 144 347 138 343 146" fill="#D2C5A0"/>
+  <path d="M334 152 C320 146 308 148 306 156 C304 163 314 169 322 165 C330 161 333 155 334 152" fill="#D2C5A0"/>
+  <path d="M346 152 C360 146 372 148 374 156 C376 163 366 169 358 165 C350 161 347 155 346 152" fill="#D2C5A0"/>
+  <circle cx="340" cy="148" r="5" fill="#1C3252"/>
+  <circle cx="340" cy="148" r="2.5" fill="#D2C5A0"/>
+  <path d="M340 165 C360 160 378 148 388 134 C398 120 396 104 384 100 C372 96 362 106 368 118 C374 130 388 128 390 118 C392 108 382 102 376 108" fill="none" stroke="#D2C5A0" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M388 134 C400 126 414 126 416 134 C418 142 406 150 396 146 C388 142 385 136 388 134 Z" fill="#D2C5A0"/>
+  <path d="M376 108 C368 102 358 104 356 112 C354 120 362 128 370 124 C377 120 378 112 373 110 C368 108 364 112 366 116 C368 120 373 120 374 116 Z" fill="#D2C5A0"/>
+  <path d="M395 144 C412 136 430 122 440 108 C450 94 448 78 436 74 C424 70 415 82 421 94 C427 106 440 104 441 94" fill="none" stroke="#D2C5A0" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M440 108 C452 100 466 102 467 112 C468 122 455 128 446 122 C438 116 437 110 440 108 Z" fill="#D2C5A0"/>
+  <path d="M441 94 C434 87 424 89 422 97 C420 105 428 113 436 109 C442 105 443 97 438 95 C433 93 429 97 431 101 C433 105 438 104 438 101 Z" fill="#D2C5A0"/>
+  <path d="M466 120 C482 112 500 100 510 88 C520 76 517 62 505 60 C493 58 486 70 492 80" fill="none" stroke="#D2C5A0" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M510 88 C520 82 534 84 534 92 C534 100 522 106 514 101 C507 96 506 90 510 88 Z" fill="#D2C5A0"/>
+  <path d="M492 80 C485 73 476 75 475 82 C474 89 481 96 488 92 C494 89 494 82 490 81 C486 80 484 83 486 86 C488 89 492 88 492 86 Z" fill="#D2C5A0"/>
+  <path d="M534 100 C550 93 565 82 572 70 C578 58 573 46 562 46" fill="none" stroke="#D2C5A0" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M572 70 C580 64 591 66 591 74 C591 82 580 86 573 82 C567 78 567 72 572 70 Z" fill="#D2C5A0" opacity="0.9"/>
+  <path d="M562 46 C555 40 547 43 547 50 C547 57 554 62 560 58 C565 55 565 49 561 48 C558 47 556 50 558 53 C560 56 563 55 563 53 Z" fill="#D2C5A0" opacity="0.9"/>
+  <path d="M600 100 C608 92 618 88 622 92 C626 96 624 108 616 110 C608 112 600 106 600 100 Z" fill="#D2C5A0" opacity="0.85"/>
+  <circle cx="608" cy="97" r="4" fill="#D2C5A0" opacity="0.9"/>
+  <circle cx="608" cy="97" r="2" fill="#1C3252"/>
+  <path d="M340 165 C320 160 302 148 292 134 C282 120 284 104 296 100 C308 96 318 106 312 118 C306 130 292 128 290 118 C288 108 298 102 304 108" fill="none" stroke="#D2C5A0" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M292 134 C280 126 266 126 264 134 C262 142 274 150 284 146 C292 142 295 136 292 134 Z" fill="#D2C5A0"/>
+  <path d="M304 108 C312 102 322 104 324 112 C326 120 318 128 310 124 C303 120 302 112 307 110 C312 108 316 112 314 116 C312 120 307 120 306 116 Z" fill="#D2C5A0"/>
+  <path d="M285 144 C268 136 250 122 240 108 C230 94 232 78 244 74 C256 70 265 82 259 94 C253 106 240 104 239 94" fill="none" stroke="#D2C5A0" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M240 108 C228 100 214 102 213 112 C212 122 225 128 234 122 C242 116 243 110 240 108 Z" fill="#D2C5A0"/>
+  <path d="M239 94 C246 87 256 89 258 97 C260 105 252 113 244 109 C238 105 237 97 242 95 C247 93 251 97 249 101 C247 105 242 104 242 101 Z" fill="#D2C5A0"/>
+  <path d="M214 120 C198 112 180 100 170 88 C160 76 163 62 175 60 C187 58 194 70 188 80" fill="none" stroke="#D2C5A0" stroke-width="1.3" stroke-linecap="round"/>
+  <path d="M170 88 C160 82 146 84 146 92 C146 100 158 106 166 101 C173 96 174 90 170 88 Z" fill="#D2C5A0"/>
+  <path d="M188 80 C195 73 204 75 205 82 C206 89 199 96 192 92 C186 89 186 82 190 81 C194 80 196 83 194 86 C192 89 188 88 188 86 Z" fill="#D2C5A0"/>
+  <path d="M146 100 C130 93 115 82 108 70 C102 58 107 46 118 46" fill="none" stroke="#D2C5A0" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M108 70 C100 64 89 66 89 74 C89 82 100 86 107 82 C113 78 113 72 108 70 Z" fill="#D2C5A0" opacity="0.9"/>
+  <path d="M118 46 C125 40 133 43 133 50 C133 57 126 62 120 58 C115 55 115 49 119 48 C122 47 124 50 122 53 C120 56 117 55 117 53 Z" fill="#D2C5A0" opacity="0.9"/>
+  <path d="M80 100 C72 92 62 88 58 92 C54 96 56 108 64 110 C72 112 80 106 80 100 Z" fill="#D2C5A0" opacity="0.85"/>
+  <circle cx="72" cy="97" r="4" fill="#D2C5A0" opacity="0.9"/>
+  <circle cx="72" cy="97" r="2" fill="#1C3252"/>
+</g>
+<!-- 左右縦帯 -->
+<rect x="24" y="194" width="48" height="472" fill="#1C3252"/>
+<rect x="608" y="194" width="48" height="472" fill="#1C3252"/>
+<!-- 縦唐草 -->
+<g fill="none" stroke="#D2C5A0" stroke-linecap="round">
+  <path d="M48 220 C36 228 34 242 42 250 C50 258 62 254 62 244 C62 234 50 230 48 238" stroke-width="1.2"/>
+  <path d="M48 290 C36 298 34 312 42 320 C50 328 62 324 62 314 C62 304 50 300 48 308" stroke-width="1.2"/>
+  <path d="M48 360 C36 368 34 382 42 390 C50 398 62 394 62 384" stroke-width="1.2"/>
+  <path d="M48 430 C36 438 34 452 42 460 C50 468 62 464 62 454" stroke-width="1.2"/>
+  <path d="M48 500 C36 508 34 522 42 530 C50 538 62 534 62 524" stroke-width="1.2"/>
+  <path d="M48 570 C36 578 34 592 42 600 C50 608 62 604 62 594" stroke-width="1.2"/>
+  <path d="M632 220 C644 228 646 242 638 250 C630 258 618 254 618 244 C618 234 630 230 632 238" stroke-width="1.2"/>
+  <path d="M632 290 C644 298 646 312 638 320 C630 328 618 324 618 314 C618 304 630 300 632 308" stroke-width="1.2"/>
+  <path d="M632 360 C644 368 646 382 638 390 C630 398 618 394 618 384" stroke-width="1.2"/>
+  <path d="M632 430 C644 438 646 452 638 460 C630 468 618 464 618 454" stroke-width="1.2"/>
+  <path d="M632 500 C644 508 646 522 638 530 C630 538 618 534 618 524" stroke-width="1.2"/>
+  <path d="M632 570 C644 578 646 592 638 600 C630 608 618 604 618 594" stroke-width="1.2"/>
+</g>
+<g fill="#D2C5A0" opacity="0.8">
+  <ellipse cx="56" cy="244" rx="4" ry="7" transform="rotate(-15 56 244)"/>
+  <ellipse cx="56" cy="314" rx="4" ry="7" transform="rotate(-15 56 314)"/>
+  <ellipse cx="56" cy="384" rx="4" ry="7" transform="rotate(-15 56 384)"/>
+  <ellipse cx="56" cy="454" rx="4" ry="7" transform="rotate(-15 56 454)"/>
+  <ellipse cx="56" cy="524" rx="4" ry="7" transform="rotate(-15 56 524)"/>
+  <ellipse cx="56" cy="594" rx="4" ry="7" transform="rotate(-15 56 594)"/>
+  <ellipse cx="624" cy="244" rx="4" ry="7" transform="rotate(15 624 244)"/>
+  <ellipse cx="624" cy="314" rx="4" ry="7" transform="rotate(15 624 314)"/>
+  <ellipse cx="624" cy="384" rx="4" ry="7" transform="rotate(15 624 384)"/>
+  <ellipse cx="624" cy="454" rx="4" ry="7" transform="rotate(15 624 454)"/>
+  <ellipse cx="624" cy="524" rx="4" ry="7" transform="rotate(15 624 524)"/>
+  <ellipse cx="624" cy="594" rx="4" ry="7" transform="rotate(15 624 594)"/>
+</g>
+<!-- テキスト枠 -->
+<rect x="96" y="228" width="488" height="62" fill="none" stroke="#1C3252" stroke-width="2"/>
+<rect x="102" y="234" width="476" height="50" fill="none" stroke="#1C3252" stroke-width="0.7" opacity="0.6"/>
+<text x="340" y="268" text-anchor="middle" font-family="serif" font-size="24" font-weight="700" fill="#1C3252" letter-spacing="14" opacity="0.9">中　國　茶</text>
+<!-- メインテキスト枠 -->
+<rect x="84" y="316" width="512" height="140" fill="#D2C5A0" opacity="0.22"/>
+<rect x="84" y="316" width="512" height="140" fill="none" stroke="#1C3252" stroke-width="3.5"/>
+<rect x="92" y="324" width="496" height="124" fill="none" stroke="#1C3252" stroke-width="1" opacity="0.6"/>
+<path d="M84 316 C84 306 94 296 104 296" fill="none" stroke="#1C3252" stroke-width="2"/>
+<path d="M596 316 C596 306 586 296 576 296" fill="none" stroke="#1C3252" stroke-width="2"/>
+<path d="M84 456 C84 466 94 476 104 476" fill="none" stroke="#1C3252" stroke-width="2"/>
+<path d="M596 456 C596 466 586 476 576 476" fill="none" stroke="#1C3252" stroke-width="2"/>
+<circle cx="84" cy="316" r="7" fill="#1C3252"/>
+<circle cx="596" cy="316" r="7" fill="#1C3252"/>
+<circle cx="84" cy="456" r="7" fill="#1C3252"/>
+<circle cx="596" cy="456" r="7" fill="#1C3252"/>
+<text x="340" y="402" text-anchor="middle" font-family="serif" font-size="58" font-weight="700" fill="#1C3252" letter-spacing="8" opacity="0.95">品 茗 手 帖</text>
+<!-- 仕切り -->
+<line x1="96" y1="486" x2="584" y2="486" stroke="#1C3252" stroke-width="1.8" opacity="0.7"/>
+<line x1="96" y1="490" x2="584" y2="490" stroke="#1C3252" stroke-width="0.6" opacity="0.4"/>
+<circle cx="340" cy="488" r="6" fill="#1C3252"/>
+<circle cx="340" cy="488" r="3" fill="#7A9688"/>
+<circle cx="210" cy="488" r="4" fill="#1C3252"/>
+<circle cx="470" cy="488" r="4" fill="#1C3252"/>
+<!-- 下テキスト枠 -->
+<rect x="96" y="508" width="488" height="96" fill="none" stroke="#1C3252" stroke-width="2"/>
+<rect x="102" y="514" width="476" height="84" fill="none" stroke="#1C3252" stroke-width="0.7" opacity="0.6"/>
+<text x="340" y="556" text-anchor="middle" font-family="serif" font-size="30" font-weight="700" fill="#1C3252" letter-spacing="10" opacity="0.9">飲 茶 記 録</text>
+<text x="340" y="585" text-anchor="middle" font-family="serif" font-size="12" fill="#1C3252" letter-spacing="5" opacity="0.65">CHINESE TEA TASTING RECORD</text>
+<text x="340" y="636" text-anchor="middle" font-family="serif" font-size="13" fill="#1C3252" letter-spacing="4" opacity="0.7">民 國 十 四 年</text>
+</svg>
