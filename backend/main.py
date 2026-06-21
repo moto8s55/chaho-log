@@ -69,15 +69,21 @@ async def create_record(
     photo4: Optional[UploadFile] = File(None),
 ):
     record = json.loads(record_json)
+    # 写真は順番を保持した4要素リスト（Noneは空文字）
     photo_urls = []
-
     for i, photo in enumerate([photo1, photo2, photo3, photo4], 1):
         if photo and photo.filename:
-            raw = await photo.read()
-            compressed = compress_image(raw)
-            no = record.get("No.", "0000")
-            url = upload_photo(compressed, f"photo_{no}_{i}.jpg")
-            photo_urls.append(url)
+            try:
+                raw = await photo.read()
+                compressed = compress_image(raw)
+                rec_no = record.get("No.", "0000")
+                url = upload_photo(compressed, f"photo_{rec_no}_{i}.jpg")
+                photo_urls.append(url)
+            except Exception as upload_err:
+                traceback.print_exc()
+                photo_urls.append("")  # アップロード失敗時は空文字で継続
+        else:
+            photo_urls.append("")  # 写真なしも空文字で位置を保持
 
     try:
         no = append_record(record, photo_urls)

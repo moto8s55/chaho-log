@@ -4,7 +4,7 @@ from auth import get_credentials
 import io
 import os
 
-DRIVE_FOLDER_ID = os.environ.get("DRIVE_FOLDER_ID", "")
+DRIVE_FOLDER_ID = os.environ.get("DRIVE_FOLDER_ID", "1TXz71w-kjAFOd3ntKD1MArDkwgPM3dIH")
 SCOPES = ["https://www.googleapis.com/auth/drive.file"]
 
 
