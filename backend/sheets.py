@@ -166,15 +166,14 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
         (f"{sheet_title}!G41", v("また飲みたい")),
         (f"{sheet_title}!D42", v("推薦度")),
         (f"{sheet_title}!B46", v("メモ")),
-        # 写真①②：既存の結合セルアンカー（B51, F51）に直接IMAGE書き込み
+        # 写真4枚：行51-56を4分割（B51上半,B54下半,F51上半,F54下半）
         (f"{sheet_title}!B51",
          f'=IMAGE("{photo_urls[2]}", 1)' if len(photo_urls) > 2 and photo_urls[2] else "茶 器"),
-        (f"{sheet_title}!F51",
+        (f"{sheet_title}!B54",
          f'=IMAGE("{photo_urls[0]}", 1)' if len(photo_urls) > 0 and photo_urls[0] else "茶 葉 · 外 觀"),
-        # 写真③④：行57に書き込み（結合後）
-        (f"{sheet_title}!B57",
+        (f"{sheet_title}!F51",
          f'=IMAGE("{photo_urls[1]}", 1)' if len(photo_urls) > 1 and photo_urls[1] else "水 色 · 茶 湯"),
-        (f"{sheet_title}!F57",
+        (f"{sheet_title}!F54",
          f'=IMAGE("{photo_urls[3]}", 1)' if len(photo_urls) > 3 and photo_urls[3] else "設 え"),
     ]
 
@@ -186,55 +185,39 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
             body={"valueInputOption": "USER_ENTERED", "data": data}
         ).execute()
 
-    # ステップ1：行57〜61のみ高さ設定（rows 51-56はテンプレートの高さを維持）
-    service.spreadsheets().batchUpdate(
-        spreadsheetId=SPREADSHEET_ID,
-        body={"requests": [
-            {"updateDimensionProperties": {
-                "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
-                          "startIndex": 56, "endIndex": 61},
-                "properties": {"pixelSize": 100},
-                "fields": "pixelSize"
-            }},
-        ]}
-    ).execute()
-
-    # ステップ2：行57〜61の結合（既存マージと競合する可能性があるため個別try）
+    # 写真エリア（行51-56）を4分割して4枚の写真を均等表示
     try:
         service.spreadsheets().batchUpdate(
             spreadsheetId=SPREADSHEET_ID,
             body={"requests": [
-                # 行57〜61 左（B:D）結合
-                {"mergeCells": {
-                    "range": {"sheetId": new_sheet_id,
-                              "startRowIndex": 56, "endRowIndex": 61,
-                              "startColumnIndex": 1, "endColumnIndex": 4},
-                    "mergeType": "MERGE_ALL"
-                }},
-                # 行57〜61 右（F:I）結合
-                {"mergeCells": {
-                    "range": {"sheetId": new_sheet_id,
-                              "startRowIndex": 56, "endRowIndex": 61,
-                              "startColumnIndex": 5, "endColumnIndex": 9},
-                    "mergeType": "MERGE_ALL"
-                }},
+                # まず既存の結合を解除
+                {"unmergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 56,
+                    "startColumnIndex": 1, "endColumnIndex": 9}}},
+                # 左上（B51:D53）：茶器
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 53,
+                    "startColumnIndex": 1, "endColumnIndex": 4},
+                    "mergeType": "MERGE_ALL"}},
+                # 左下（B54:D56）：茶葉
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 53, "endRowIndex": 56,
+                    "startColumnIndex": 1, "endColumnIndex": 4},
+                    "mergeType": "MERGE_ALL"}},
+                # 右上（F51:I53）：水色・茶湯
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 53,
+                    "startColumnIndex": 5, "endColumnIndex": 9},
+                    "mergeType": "MERGE_ALL"}},
+                # 右下（F54:I56）：設え
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 53, "endRowIndex": 56,
+                    "startColumnIndex": 5, "endColumnIndex": 9},
+                    "mergeType": "MERGE_ALL"}},
             ]}
         ).execute()
-    except Exception:
-        pass  # 結合失敗は非致命的
-
-    # ステップ3：結合後に再度高さ確認設定
-    service.spreadsheets().batchUpdate(
-        spreadsheetId=SPREADSHEET_ID,
-        body={"requests": [
-            {"updateDimensionProperties": {
-                "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
-                          "startIndex": 56, "endIndex": 61},
-                "properties": {"pixelSize": 100},
-                "fields": "pixelSize"
-            }},
-        ]}
-    ).execute()
+    except Exception as e:
+        print(f"photo merge failed (non-fatal): {e}")
 
 
 def append_record(record: dict, photo_urls: list):
