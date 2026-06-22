@@ -186,37 +186,52 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
             body={"valueInputOption": "USER_ENTERED", "data": data}
         ).execute()
 
-    # 写真セルの行高さ設定＋行57のセル結合
+    # ステップ1：行高さのみ設定（別API呼び出しで確実に実行）
     service.spreadsheets().batchUpdate(
         spreadsheetId=SPREADSHEET_ID,
         body={"requests": [
-            # 行51〜55：既存テンプレートの大きな写真エリア（高さ確認用）
             {"updateDimensionProperties": {
                 "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
-                          "startIndex": 50, "endIndex": 56},
+                          "startIndex": 50, "endIndex": 57},
                 "properties": {"pixelSize": 200},
                 "fields": "pixelSize"
             }},
-            # 行57〜60：写真③④エリア（高さ設定）
+        ]}
+    ).execute()
+
+    # ステップ2：行57〜61の結合（既存マージと競合する可能性があるため個別try）
+    try:
+        service.spreadsheets().batchUpdate(
+            spreadsheetId=SPREADSHEET_ID,
+            body={"requests": [
+                # 行57〜61 左（B:D）結合
+                {"mergeCells": {
+                    "range": {"sheetId": new_sheet_id,
+                              "startRowIndex": 56, "endRowIndex": 61,
+                              "startColumnIndex": 1, "endColumnIndex": 4},
+                    "mergeType": "MERGE_ALL"
+                }},
+                # 行57〜61 右（F:I）結合
+                {"mergeCells": {
+                    "range": {"sheetId": new_sheet_id,
+                              "startRowIndex": 56, "endRowIndex": 61,
+                              "startColumnIndex": 5, "endColumnIndex": 9},
+                    "mergeType": "MERGE_ALL"
+                }},
+            ]}
+        ).execute()
+    except Exception:
+        pass  # 結合失敗は非致命的
+
+    # ステップ3：行57〜61の高さ設定（結合後）
+    service.spreadsheets().batchUpdate(
+        spreadsheetId=SPREADSHEET_ID,
+        body={"requests": [
             {"updateDimensionProperties": {
                 "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
                           "startIndex": 56, "endIndex": 61},
                 "properties": {"pixelSize": 200},
                 "fields": "pixelSize"
-            }},
-            # 行57 左側セル結合（B57:D57）：写真③
-            {"mergeCells": {
-                "range": {"sheetId": new_sheet_id,
-                          "startRowIndex": 56, "endRowIndex": 61,
-                          "startColumnIndex": 1, "endColumnIndex": 4},
-                "mergeType": "MERGE_ALL"
-            }},
-            # 行57 右側セル結合（F57:I57）：写真④
-            {"mergeCells": {
-                "range": {"sheetId": new_sheet_id,
-                          "startRowIndex": 56, "endRowIndex": 61,
-                          "startColumnIndex": 5, "endColumnIndex": 9},
-                "mergeType": "MERGE_ALL"
             }},
         ]}
     ).execute()
