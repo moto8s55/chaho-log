@@ -67,8 +67,8 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
     no_str = f"{no:04d}"
     sheet_title = f"No.{no_str}"
 
-    # テンプレートシートを複製
-    service.spreadsheets().batchUpdate(
+    # テンプレートシートを複製（新シートIDを取得）
+    dup_resp = service.spreadsheets().batchUpdate(
         spreadsheetId=SPREADSHEET_ID,
         body={"requests": [{"duplicateSheet": {
             "sourceSheetId": TEMPLATE_SHEET_ID,
@@ -76,6 +76,7 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
             "newSheetName": sheet_title,
         }}]}
     ).execute()
+    new_sheet_id = dup_resp["replies"][0]["duplicateSheet"]["properties"]["sheetId"]
 
     # テンプレートの例示データをクリア（ラベル行は残す）
     clear_ranges = [
@@ -165,11 +166,16 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
         (f"{sheet_title}!G41", v("また飲みたい")),
         (f"{sheet_title}!D42", v("推薦度")),
         (f"{sheet_title}!B46", v("メモ")),
-        # 写真①〜④ IMAGE表示
-        (f"{sheet_title}!B52", f'=IMAGE("{photo_urls[0]}")' if len(photo_urls) > 0 and photo_urls[0] else ""),
-        (f"{sheet_title}!F52", f'=IMAGE("{photo_urls[1]}")' if len(photo_urls) > 1 and photo_urls[1] else ""),
-        (f"{sheet_title}!B57", f'=IMAGE("{photo_urls[2]}")' if len(photo_urls) > 2 and photo_urls[2] else ""),
-        (f"{sheet_title}!F57", f'=IMAGE("{photo_urls[3]}")' if len(photo_urls) > 3 and photo_urls[3] else ""),
+        # 写真セクション：ラベル（4枚）
+        (f"{sheet_title}!B51", "茶 器"),
+        (f"{sheet_title}!F51", "茶 葉 · 外 觀"),
+        (f"{sheet_title}!B56", "水 色 · 茶 湯"),
+        (f"{sheet_title}!F56", "設 え"),
+        # 写真①〜④ IMAGE表示（各ラベルの直下セル）
+        (f"{sheet_title}!B52", f'=IMAGE("{photo_urls[2]}", 1)' if len(photo_urls) > 2 and photo_urls[2] else ""),
+        (f"{sheet_title}!F52", f'=IMAGE("{photo_urls[0]}", 1)' if len(photo_urls) > 0 and photo_urls[0] else ""),
+        (f"{sheet_title}!B57", f'=IMAGE("{photo_urls[1]}", 1)' if len(photo_urls) > 1 and photo_urls[1] else ""),
+        (f"{sheet_title}!F57", f'=IMAGE("{photo_urls[3]}", 1)' if len(photo_urls) > 3 and photo_urls[3] else ""),
     ]
 
     # まとめて一括更新
@@ -179,6 +185,27 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
             spreadsheetId=SPREADSHEET_ID,
             body={"valueInputOption": "USER_ENTERED", "data": data}
         ).execute()
+
+    # 写真セルの行高さを設定（大きく表示）
+    service.spreadsheets().batchUpdate(
+        spreadsheetId=SPREADSHEET_ID,
+        body={"requests": [
+            # 写真①②（行52〜55）
+            {"updateDimensionProperties": {
+                "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
+                          "startIndex": 51, "endIndex": 55},
+                "properties": {"pixelSize": 200},
+                "fields": "pixelSize"
+            }},
+            # 写真③④（行57〜60）
+            {"updateDimensionProperties": {
+                "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
+                          "startIndex": 56, "endIndex": 60},
+                "properties": {"pixelSize": 200},
+                "fields": "pixelSize"
+            }},
+        ]}
+    ).execute()
 
 
 def append_record(record: dict, photo_urls: list):
