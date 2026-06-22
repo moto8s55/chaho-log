@@ -186,14 +186,14 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
             body={"valueInputOption": "USER_ENTERED", "data": data}
         ).execute()
 
-    # ステップ1：行高さのみ設定（別API呼び出しで確実に実行）
+    # ステップ1：行57〜61のみ高さ設定（rows 51-56はテンプレートの高さを維持）
     service.spreadsheets().batchUpdate(
         spreadsheetId=SPREADSHEET_ID,
         body={"requests": [
             {"updateDimensionProperties": {
                 "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
-                          "startIndex": 50, "endIndex": 57},
-                "properties": {"pixelSize": 200},
+                          "startIndex": 56, "endIndex": 61},
+                "properties": {"pixelSize": 100},
                 "fields": "pixelSize"
             }},
         ]}
@@ -223,14 +223,14 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
     except Exception:
         pass  # 結合失敗は非致命的
 
-    # ステップ3：行57〜61の高さ設定（結合後）
+    # ステップ3：結合後に再度高さ確認設定
     service.spreadsheets().batchUpdate(
         spreadsheetId=SPREADSHEET_ID,
         body={"requests": [
             {"updateDimensionProperties": {
                 "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
                           "startIndex": 56, "endIndex": 61},
-                "properties": {"pixelSize": 200},
+                "properties": {"pixelSize": 100},
                 "fields": "pixelSize"
             }},
         ]}
