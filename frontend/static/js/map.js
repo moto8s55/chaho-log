@@ -1,50 +1,99 @@
-// 画像サイズ: 1400 x 1661 px
-// CRS.Simple: 座標は [y_from_bottom, x_from_left] (ピクセル単位)
-const W = 1400, H = 1661;
+// ── Leaflet GeoJSON Map ──
+// 茶産地省をGeoJSONポリゴンで描画、ピンは省重心に自動配置
 
 const map = L.map('map', {
-  crs: L.CRS.Simple,
-  minZoom: -1,
-  maxZoom: 2,
+  minZoom: 3,
+  maxZoom: 7,
   zoomControl: true,
 });
 
-const IMG_BOUNDS = [[0, 0], [H, W]];
+// セピアタイル（OpenStreetMap CartoDB）
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  subdomains: 'abcd',
+  maxZoom: 20,
+  opacity: 0.3
+}).addTo(map);
 
-L.imageOverlay(
-  '/static/images/china_tea_map.png',
-  IMG_BOUNDS,
-  { opacity: 1.0, interactive: false }
-).addTo(map);
-
-map.fitBounds(IMG_BOUNDS);
-map.setMaxBounds([[- H * 0.1, -W * 0.1], [H * 1.1, W * 1.1]]);
-
-// 各省のピクセル座標 [y_from_bottom, x_from_left]
-// y_from_bottom = H - (y_from_top_px)
-const PIXEL_COORDS = {
-  "雲南省":         [H - 1195,  215],
-  "四川省":         [H -  700,  310],
-  "貴州省":         [H -  995,  520],
-  "湖南省":         [H -  960,  700],
-  "湖北省":         [H -  780,  730],
-  "陝西省":         [H -  580,  565],
-  "河南省":         [H -  630,  700],
-  "山東省":         [H -  465,  840],
-  "安徽省":         [H -  715,  885],
-  "江蘇省":         [H -  630,  910],
-  "浙江省":         [H -  880,  940],
-  "江西省":         [H -  950,  815],
-  "福建省":         [H - 1035,  945],
-  "広東省":         [H - 1160,  775],
-  "広西壮族自治区": [H - 1130,  610],
-  "海南省":         [H - 1395,  730],
-  "台湾":           [H - 1215, 1065],
+// 色パレット
+const COLOR = {
+  tea:       '#C8A878',  // 茶産地
+  teaBorder: '#5C3D1E',
+  ctx:       '#D4C49A',  // コンテキスト省
+  ctxBorder: '#8B7355',
+  hover:     '#A07840',
+  label:     '#2C1A08',
 };
 
-async function loadMap() {
-  const records = await fetch('/api/records').then(r => r.json()).catch(() => []);
+let geojsonLayer = null;
+let labelMarkers = [];
 
+function provinceStyle(feature) {
+  return feature.properties.is_tea ? {
+    fillColor: COLOR.tea,
+    color: COLOR.teaBorder,
+    weight: 1.2,
+    fillOpacity: 0.75,
+  } : {
+    fillColor: COLOR.ctx,
+    color: COLOR.ctxBorder,
+    weight: 0.6,
+    fillOpacity: 0.45,
+  };
+}
+
+function onEachFeature(feature, layer) {
+  layer.on({
+    mouseover: e => {
+      if (feature.properties.is_tea) {
+        e.target.setStyle({ fillColor: COLOR.hover, fillOpacity: 0.9 });
+      }
+    },
+    mouseout: e => {
+      geojsonLayer.resetStyle(e.target);
+    },
+  });
+}
+
+// 省名ラベルをDivIconで配置
+function addProvinceLabels(features) {
+  labelMarkers.forEach(m => map.removeLayer(m));
+  labelMarkers = [];
+  features.forEach(f => {
+    const [lat, lng] = f.properties.centroid;
+    const name = f.properties.name_zh;
+    const isTea = f.properties.is_tea;
+    const icon = L.divIcon({
+      className: '',
+      html: `<span style="font-family:'Noto Serif SC',serif;font-size:${isTea?11:9}px;color:${COLOR.label};opacity:${isTea?'0.85':'0.5'};white-space:nowrap;text-shadow:0 0 3px #E8DCC8,0 0 3px #E8DCC8">${name}</span>`,
+      iconSize: [80, 16],
+      iconAnchor: [40, 8],
+    });
+    const m = L.marker([lat, lng], { icon, interactive: false }).addTo(map);
+    labelMarkers.push(m);
+  });
+}
+
+async function loadMap() {
+  // GeoJSONと記録データを並行取得
+  const [geoData, records] = await Promise.all([
+    fetch('/static/images/china_provinces.geojson').then(r => r.json()),
+    fetch('/api/records').then(r => r.json()).catch(() => []),
+  ]);
+
+  // GeoJSONレイヤー描画
+  geojsonLayer = L.geoJSON(geoData, {
+    style: provinceStyle,
+    onEachFeature,
+  }).addTo(map);
+
+  // 地図範囲を中国全土に合わせる
+  map.fitBounds([[17, 95], [45, 125]]);
+
+  // 省名ラベル
+  addProvinceLabels(geoData.features);
+
+  // 記録データを省ごとに集計
   const byRegion = {};
   for (const rec of records) {
     const region = rec['産地'] || '';
@@ -53,8 +102,14 @@ async function loadMap() {
     byRegion[region].push(rec);
   }
 
+  // 各省の重心にピンを配置
+  const provinceMap = {};
+  for (const f of geoData.features) {
+    provinceMap[f.properties.name_zh] = f.properties.centroid;
+  }
+
   for (const [region, recs] of Object.entries(byRegion)) {
-    const coords = PIXEL_COORDS[region];
+    const coords = provinceMap[region];
     if (!coords) continue;
 
     const icon = L.divIcon({
