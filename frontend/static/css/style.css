@@ -64,9 +64,10 @@ header {
 .header-title {
   font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.25em;
   color: var(--text);
   font-family: 'Noto Serif SC', serif;
+  white-space: nowrap;
 }
 .header-sub {
   font-size: 10px;
