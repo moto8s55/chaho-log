@@ -78,7 +78,48 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
     ).execute()
     new_sheet_id = dup_resp["replies"][0]["duplicateSheet"]["properties"]["sheetId"]
 
-    # テンプレートの例示データをクリア（ラベル行は残す）
+    # ステップ1：写真エリアのマージを先に変更（値書き込みより前に実行）
+    try:
+        service.spreadsheets().batchUpdate(
+            spreadsheetId=SPREADSHEET_ID,
+            body={"requests": [
+                # 行高さ設定（65px × 3行 ≈ 195px per photo）
+                {"updateDimensionProperties": {
+                    "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
+                              "startIndex": 50, "endIndex": 56},
+                    "properties": {"pixelSize": 65},
+                    "fields": "pixelSize"
+                }},
+                # 既存マージ解除
+                {"unmergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 56,
+                    "startColumnIndex": 1, "endColumnIndex": 5}}},
+                {"unmergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 56,
+                    "startColumnIndex": 5, "endColumnIndex": 9}}},
+                # 4分割マージ（B:E左, F:I右 × 上下）
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 53,
+                    "startColumnIndex": 1, "endColumnIndex": 5},
+                    "mergeType": "MERGE_ALL"}},
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 53, "endRowIndex": 56,
+                    "startColumnIndex": 1, "endColumnIndex": 5},
+                    "mergeType": "MERGE_ALL"}},
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 53,
+                    "startColumnIndex": 5, "endColumnIndex": 9},
+                    "mergeType": "MERGE_ALL"}},
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 53, "endRowIndex": 56,
+                    "startColumnIndex": 5, "endColumnIndex": 9},
+                    "mergeType": "MERGE_ALL"}},
+            ]}
+        ).execute()
+    except Exception as e:
+        print(f"photo merge failed (non-fatal): {e}")
+
+    # ステップ2：テンプレートの例示データをクリア
     clear_ranges = [
         f"{sheet_title}!G3",
         f"{sheet_title}!C6:G6",
@@ -185,43 +226,6 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
             body={"valueInputOption": "USER_ENTERED", "data": data}
         ).execute()
 
-    # 写真エリア（行51-56）を4分割して4枚均等表示
-    # テンプレートの正確なマージ範囲: 左=B:E(col1-5), 右=F:I(col5-9)
-    try:
-        service.spreadsheets().batchUpdate(
-            spreadsheetId=SPREADSHEET_ID,
-            body={"requests": [
-                # 既存マージ解除（左右両エリア）
-                {"unmergeCells": {"range": {"sheetId": new_sheet_id,
-                    "startRowIndex": 50, "endRowIndex": 56,
-                    "startColumnIndex": 1, "endColumnIndex": 5}}},  # B:E
-                {"unmergeCells": {"range": {"sheetId": new_sheet_id,
-                    "startRowIndex": 50, "endRowIndex": 56,
-                    "startColumnIndex": 5, "endColumnIndex": 9}}},  # F:I
-                # 左上（B51:E53）：茶器
-                {"mergeCells": {"range": {"sheetId": new_sheet_id,
-                    "startRowIndex": 50, "endRowIndex": 53,
-                    "startColumnIndex": 1, "endColumnIndex": 5},
-                    "mergeType": "MERGE_ALL"}},
-                # 左下（B54:E56）：茶葉
-                {"mergeCells": {"range": {"sheetId": new_sheet_id,
-                    "startRowIndex": 53, "endRowIndex": 56,
-                    "startColumnIndex": 1, "endColumnIndex": 5},
-                    "mergeType": "MERGE_ALL"}},
-                # 右上（F51:I53）：水色・茶湯
-                {"mergeCells": {"range": {"sheetId": new_sheet_id,
-                    "startRowIndex": 50, "endRowIndex": 53,
-                    "startColumnIndex": 5, "endColumnIndex": 9},
-                    "mergeType": "MERGE_ALL"}},
-                # 右下（F54:I56）：設え
-                {"mergeCells": {"range": {"sheetId": new_sheet_id,
-                    "startRowIndex": 53, "endRowIndex": 56,
-                    "startColumnIndex": 5, "endColumnIndex": 9},
-                    "mergeType": "MERGE_ALL"}},
-            ]}
-        ).execute()
-    except Exception as e:
-        print(f"photo merge failed (non-fatal): {e}")
 
 
 def append_record(record: dict, photo_urls: list):
