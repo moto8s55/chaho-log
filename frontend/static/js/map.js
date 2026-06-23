@@ -1,5 +1,4 @@
-// ── Leaflet GeoJSON Map ──
-// 茶産地省をGeoJSONポリゴンで描画、ピンは省重心に自動配置
+// ── Leaflet GeoJSON Map ── 1920年代上海・古地図スタイル
 
 const map = L.map('map', {
   minZoom: 3,
@@ -7,21 +6,45 @@ const map = L.map('map', {
   zoomControl: true,
 });
 
-// セピアタイル（OpenStreetMap CartoDB）
+// 古地図風タイル（ラベルなし薄色）
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
   subdomains: 'abcd',
   maxZoom: 20,
-  opacity: 0.3
+  opacity: 0.15,  // ほぼ非表示にして海色をCSSで制御
 }).addTo(map);
 
-// 色パレット
+// 方位磁針を右下に追加
+const compassEl = document.createElement('div');
+compassEl.className = 'compass-rose';
+compassEl.innerHTML = `
+<svg width="72" height="72" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="36" cy="36" r="34" fill="#E8DCC8" stroke="#5C3D1E" stroke-width="1.5" opacity="0.92"/>
+  <circle cx="36" cy="36" r="28" fill="none" stroke="#8B7040" stroke-width="0.6" stroke-dasharray="3,3"/>
+  <circle cx="36" cy="36" r="4" fill="#5C3D1E"/>
+  <!-- 北（赤） -->
+  <polygon points="36,6 31,36 36,30 41,36" fill="#8B2515"/>
+  <!-- 南（白） -->
+  <polygon points="36,66 31,36 36,42 41,36" fill="#D4C49A" stroke="#5C3D1E" stroke-width="0.5"/>
+  <!-- 東 -->
+  <polygon points="66,36 36,31 42,36 36,41" fill="#C8A878" stroke="#5C3D1E" stroke-width="0.5"/>
+  <!-- 西 -->
+  <polygon points="6,36 36,31 30,36 36,41" fill="#C8A878" stroke="#5C3D1E" stroke-width="0.5"/>
+  <!-- 方位ラベル -->
+  <text x="36" y="18" text-anchor="middle" font-family="serif" font-size="9" fill="#5C3D1E" font-weight="bold">北</text>
+  <text x="36" y="62" text-anchor="middle" font-family="serif" font-size="8" fill="#5C3D1E">南</text>
+  <text x="60" y="40" text-anchor="middle" font-family="serif" font-size="8" fill="#5C3D1E">東</text>
+  <text x="12" y="40" text-anchor="middle" font-family="serif" font-size="8" fill="#5C3D1E">西</text>
+</svg>`;
+document.getElementById('map').appendChild(compassEl);
+
+// 色パレット（古地図・セピア調）
 const COLOR = {
-  tea:       '#C8A878',  // 茶産地
-  teaBorder: '#5C3D1E',
-  ctx:       '#D4C49A',  // コンテキスト省
-  ctxBorder: '#8B7355',
-  hover:     '#A07840',
+  tea:       '#C4A070',  // 茶産地（深みのある黄褐色）
+  teaBorder: '#4A2E10',
+  ctx:       '#C8B890',  // コンテキスト省（薄い羊皮紙色）
+  ctxBorder: '#7A6040',
+  hover:     '#96703A',
   label:     '#2C1A08',
 };
 
