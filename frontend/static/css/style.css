@@ -62,9 +62,9 @@ header {
 }
 .header-center { text-align: center; flex: 1; }
 .header-title {
-  font-size: 22px;
+  font-size: 17px;
   font-weight: 700;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.2em;
   color: var(--text);
   font-family: 'Noto Serif SC', serif;
   white-space: nowrap;
@@ -106,12 +106,13 @@ header {
 .btn-list {
   color: var(--text2);
   text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 0.15em;
+  font-size: 11px;
+  letter-spacing: 0.05em;
   border: 1px solid var(--border);
-  padding: 8px 12px;
+  padding: 8px 10px;
   font-family: 'Noto Serif SC', serif;
   background: var(--bg2);
+  white-space: nowrap;
 }
 
 /* ── Map ── */
