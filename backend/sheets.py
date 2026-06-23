@@ -78,46 +78,97 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
     ).execute()
     new_sheet_id = dup_resp["replies"][0]["duplicateSheet"]["properties"]["sheetId"]
 
-    # ステップ1：写真エリアのマージを先に変更（値書き込みより前に実行）
+    # ステップ1：写真エリア構成（マージ→ラベル行+写真行）を先に実行
+    # 構成: row51=ラベル行, rows52-53=上写真, row54=ラベル行, rows55-56=下写真
+    gold  = {"red": 0.788, "green": 0.584, "blue": 0.353}
+    dark  = {"red": 0.161, "green": 0.102, "blue": 0.031}
+    cream = {"red": 0.953, "green": 0.929, "blue": 0.843}
+    border_s = {"style": "SOLID", "width": 1, "color": gold}
     try:
         service.spreadsheets().batchUpdate(
             spreadsheetId=SPREADSHEET_ID,
             body={"requests": [
-                # 行高さ設定（65px × 3行 ≈ 195px per photo）
-                {"updateDimensionProperties": {
-                    "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
-                              "startIndex": 50, "endIndex": 56},
-                    "properties": {"pixelSize": 65},
-                    "fields": "pixelSize"
-                }},
+                # 行高さ設定
+                {"updateDimensionProperties": {"range": {"sheetId": new_sheet_id,
+                    "dimension": "ROWS", "startIndex": 50, "endIndex": 51},
+                    "properties": {"pixelSize": 22}, "fields": "pixelSize"}},
+                {"updateDimensionProperties": {"range": {"sheetId": new_sheet_id,
+                    "dimension": "ROWS", "startIndex": 51, "endIndex": 53},
+                    "properties": {"pixelSize": 80}, "fields": "pixelSize"}},
+                {"updateDimensionProperties": {"range": {"sheetId": new_sheet_id,
+                    "dimension": "ROWS", "startIndex": 53, "endIndex": 54},
+                    "properties": {"pixelSize": 22}, "fields": "pixelSize"}},
+                {"updateDimensionProperties": {"range": {"sheetId": new_sheet_id,
+                    "dimension": "ROWS", "startIndex": 54, "endIndex": 56},
+                    "properties": {"pixelSize": 80}, "fields": "pixelSize"}},
                 # 既存マージ解除
                 {"unmergeCells": {"range": {"sheetId": new_sheet_id,
                     "startRowIndex": 50, "endRowIndex": 56,
-                    "startColumnIndex": 1, "endColumnIndex": 5}}},
-                {"unmergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startColumnIndex": 1, "endColumnIndex": 9}}},
+                # ラベル行マージ（row51: B51:E51, F51:I51）
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 51,
+                    "startColumnIndex": 1, "endColumnIndex": 5},
+                    "mergeType": "MERGE_ALL"}},
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 51,
+                    "startColumnIndex": 5, "endColumnIndex": 9},
+                    "mergeType": "MERGE_ALL"}},
+                # 上写真マージ（rows52-53）
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 51, "endRowIndex": 53,
+                    "startColumnIndex": 1, "endColumnIndex": 5},
+                    "mergeType": "MERGE_ALL"}},
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 51, "endRowIndex": 53,
+                    "startColumnIndex": 5, "endColumnIndex": 9},
+                    "mergeType": "MERGE_ALL"}},
+                # ラベル行マージ（row54: B54:E54, F54:I54）
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 53, "endRowIndex": 54,
+                    "startColumnIndex": 1, "endColumnIndex": 5},
+                    "mergeType": "MERGE_ALL"}},
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 53, "endRowIndex": 54,
+                    "startColumnIndex": 5, "endColumnIndex": 9},
+                    "mergeType": "MERGE_ALL"}},
+                # 下写真マージ（rows55-56）
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 54, "endRowIndex": 56,
+                    "startColumnIndex": 1, "endColumnIndex": 5},
+                    "mergeType": "MERGE_ALL"}},
+                {"mergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 54, "endRowIndex": 56,
+                    "startColumnIndex": 5, "endColumnIndex": 9},
+                    "mergeType": "MERGE_ALL"}},
+                # ラベル行の背景色（ゴールド）
+                {"repeatCell": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 51,
+                    "startColumnIndex": 1, "endColumnIndex": 9},
+                    "cell": {"userEnteredFormat": {
+                        "backgroundColor": dark,
+                        "textFormat": {"foregroundColor": gold, "bold": True, "fontSize": 9},
+                        "horizontalAlignment": "CENTER", "verticalAlignment": "MIDDLE"}},
+                    "fields": "userEnteredFormat"}},
+                {"repeatCell": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 53, "endRowIndex": 54,
+                    "startColumnIndex": 1, "endColumnIndex": 9},
+                    "cell": {"userEnteredFormat": {
+                        "backgroundColor": dark,
+                        "textFormat": {"foregroundColor": gold, "bold": True, "fontSize": 9},
+                        "horizontalAlignment": "CENTER", "verticalAlignment": "MIDDLE"}},
+                    "fields": "userEnteredFormat"}},
+                # 写真エリア全体に罫線
+                {"updateBorders": {"range": {"sheetId": new_sheet_id,
                     "startRowIndex": 50, "endRowIndex": 56,
-                    "startColumnIndex": 5, "endColumnIndex": 9}}},
-                # 4分割マージ（B:E左, F:I右 × 上下）
-                {"mergeCells": {"range": {"sheetId": new_sheet_id,
-                    "startRowIndex": 50, "endRowIndex": 53,
-                    "startColumnIndex": 1, "endColumnIndex": 5},
-                    "mergeType": "MERGE_ALL"}},
-                {"mergeCells": {"range": {"sheetId": new_sheet_id,
-                    "startRowIndex": 53, "endRowIndex": 56,
-                    "startColumnIndex": 1, "endColumnIndex": 5},
-                    "mergeType": "MERGE_ALL"}},
-                {"mergeCells": {"range": {"sheetId": new_sheet_id,
-                    "startRowIndex": 50, "endRowIndex": 53,
-                    "startColumnIndex": 5, "endColumnIndex": 9},
-                    "mergeType": "MERGE_ALL"}},
-                {"mergeCells": {"range": {"sheetId": new_sheet_id,
-                    "startRowIndex": 53, "endRowIndex": 56,
-                    "startColumnIndex": 5, "endColumnIndex": 9},
-                    "mergeType": "MERGE_ALL"}},
+                    "startColumnIndex": 1, "endColumnIndex": 9},
+                    "top": border_s, "bottom": border_s,
+                    "left": border_s, "right": border_s,
+                    "innerHorizontal": border_s, "innerVertical": border_s}},
             ]}
         ).execute()
     except Exception as e:
-        print(f"photo merge failed (non-fatal): {e}")
+        print(f"photo area setup failed (non-fatal): {e}")
 
     # ステップ2：テンプレートの例示データをクリア
     clear_ranges = [
@@ -207,15 +258,20 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
         (f"{sheet_title}!G41", v("また飲みたい")),
         (f"{sheet_title}!D42", v("推薦度")),
         (f"{sheet_title}!B46", v("メモ")),
-        # 写真4枚：行51-56を4分割（B51上半,B54下半,F51上半,F54下半）
-        (f"{sheet_title}!B51",
-         f'=IMAGE("{photo_urls[2]}", 1)' if len(photo_urls) > 2 and photo_urls[2] else "茶 器"),
-        (f"{sheet_title}!B54",
-         f'=IMAGE("{photo_urls[0]}", 1)' if len(photo_urls) > 0 and photo_urls[0] else "茶 葉 · 外 觀"),
-        (f"{sheet_title}!F51",
-         f'=IMAGE("{photo_urls[1]}", 1)' if len(photo_urls) > 1 and photo_urls[1] else "水 色 · 茶 湯"),
-        (f"{sheet_title}!F54",
-         f'=IMAGE("{photo_urls[3]}", 1)' if len(photo_urls) > 3 and photo_urls[3] else "設 え"),
+        # ラベル行（row51, row54）
+        (f"{sheet_title}!B51", "①  茶 器"),
+        (f"{sheet_title}!F51", "②  茶 葉 · 外 觀"),
+        (f"{sheet_title}!B54", "③  水 色 · 茶 湯"),
+        (f"{sheet_title}!F54", "④  設 え"),
+        # 写真（row52に上段, row55に下段）
+        (f"{sheet_title}!B52",
+         f'=IMAGE("{photo_urls[2]}", 1)' if len(photo_urls) > 2 and photo_urls[2] else ""),
+        (f"{sheet_title}!F52",
+         f'=IMAGE("{photo_urls[0]}", 1)' if len(photo_urls) > 0 and photo_urls[0] else ""),
+        (f"{sheet_title}!B55",
+         f'=IMAGE("{photo_urls[1]}", 1)' if len(photo_urls) > 1 and photo_urls[1] else ""),
+        (f"{sheet_title}!F55",
+         f'=IMAGE("{photo_urls[3]}", 1)' if len(photo_urls) > 3 and photo_urls[3] else ""),
     ]
 
     # まとめて一括更新
