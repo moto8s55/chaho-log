@@ -185,31 +185,28 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
             body={"valueInputOption": "USER_ENTERED", "data": data}
         ).execute()
 
-    # 写真エリア（行51-56）を4分割して4枚の写真を均等表示
+    # 写真エリア（行51-56）を4分割して4枚均等表示
+    # テンプレートの正確なマージ範囲: 左=B:E(col1-5), 右=F:I(col5-9)
     try:
         service.spreadsheets().batchUpdate(
             spreadsheetId=SPREADSHEET_ID,
             body={"requests": [
-                # 行51-56の高さを120pxに設定（3行×120px=360px per photo）
-                {"updateDimensionProperties": {
-                    "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
-                              "startIndex": 50, "endIndex": 56},
-                    "properties": {"pixelSize": 120},
-                    "fields": "pixelSize"
-                }},
-                # 既存の結合を解除
+                # 既存マージ解除（左右両エリア）
                 {"unmergeCells": {"range": {"sheetId": new_sheet_id,
                     "startRowIndex": 50, "endRowIndex": 56,
-                    "startColumnIndex": 1, "endColumnIndex": 9}}},
-                # 左上（B51:D53）：茶器
+                    "startColumnIndex": 1, "endColumnIndex": 5}}},  # B:E
+                {"unmergeCells": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 50, "endRowIndex": 56,
+                    "startColumnIndex": 5, "endColumnIndex": 9}}},  # F:I
+                # 左上（B51:E53）：茶器
                 {"mergeCells": {"range": {"sheetId": new_sheet_id,
                     "startRowIndex": 50, "endRowIndex": 53,
-                    "startColumnIndex": 1, "endColumnIndex": 4},
+                    "startColumnIndex": 1, "endColumnIndex": 5},
                     "mergeType": "MERGE_ALL"}},
-                # 左下（B54:D56）：茶葉
+                # 左下（B54:E56）：茶葉
                 {"mergeCells": {"range": {"sheetId": new_sheet_id,
                     "startRowIndex": 53, "endRowIndex": 56,
-                    "startColumnIndex": 1, "endColumnIndex": 4},
+                    "startColumnIndex": 1, "endColumnIndex": 5},
                     "mergeType": "MERGE_ALL"}},
                 # 右上（F51:I53）：水色・茶湯
                 {"mergeCells": {"range": {"sheetId": new_sheet_id,
