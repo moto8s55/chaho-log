@@ -38,14 +38,14 @@ compassEl.innerHTML = `
 </svg>`;
 document.getElementById('map').appendChild(compassEl);
 
-// 色パレット（古地図・セピア調）
+// 色パレット（古地図・くすんだ琥珀色調）
 const COLOR = {
-  tea:       '#C4A070',  // 茶産地（深みのある黄褐色）
-  teaBorder: '#4A2E10',
-  ctx:       '#C8B890',  // コンテキスト省（薄い羊皮紙色）
-  ctxBorder: '#7A6040',
-  hover:     '#96703A',
-  label:     '#2C1A08',
+  tea:       '#C8A060',  // 茶産地：深い黄褐色（古地図の陸地色）
+  teaBorder: '#3A2008',
+  ctx:       '#BCA878',  // コンテキスト省：くすんだ羊皮紙
+  ctxBorder: '#6A5030',
+  hover:     '#8B5A20',
+  label:     '#1E0E04',
 };
 
 let geojsonLayer = null;

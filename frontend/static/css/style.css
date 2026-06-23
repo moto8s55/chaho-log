@@ -119,7 +119,12 @@ header {
 #map {
   height: calc(100vh - 62px);
   width: 100%;
-  background: #8FA8B8;  /* 古地図の海色 */
+  background: #7A8E96;  /* 古地図の海色：くすんだ青灰 */
+}
+
+/* 地図全体にセピア・古地図フィルター */
+#map .leaflet-map-pane {
+  filter: sepia(0.35) contrast(0.95) brightness(0.97) saturate(0.8);
 }
 
 /* ── 方位磁針 ── */
