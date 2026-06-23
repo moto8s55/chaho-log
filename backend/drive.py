@@ -22,4 +22,5 @@ def upload_photo(image_bytes: bytes, filename: str) -> str:
         fileId=file_id,
         body={"type": "anyone", "role": "reader"}
     ).execute()
-    return f"https://drive.google.com/uc?id={file_id}"
+    # lh3形式はブラウザのimg srcで直接表示可能
+    return f"https://lh3.googleusercontent.com/d/{file_id}"

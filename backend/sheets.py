@@ -158,6 +158,14 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
                         "textFormat": {"foregroundColor": gold, "bold": True, "fontSize": 9},
                         "horizontalAlignment": "CENTER", "verticalAlignment": "MIDDLE"}},
                     "fields": "userEnteredFormat"}},
+                # メモ欄（B46:I50）の文字色をクリーム色に設定
+                {"repeatCell": {"range": {"sheetId": new_sheet_id,
+                    "startRowIndex": 45, "endRowIndex": 49,
+                    "startColumnIndex": 1, "endColumnIndex": 9},
+                    "cell": {"userEnteredFormat": {
+                        "textFormat": {"foregroundColor": cream, "fontSize": 10},
+                        "verticalAlignment": "TOP", "wrapStrategy": "WRAP"}},
+                    "fields": "userEnteredFormat(textFormat,verticalAlignment,wrapStrategy)"}},
                 # 写真エリア全体に罫線
                 {"updateBorders": {"range": {"sheetId": new_sheet_id,
                     "startRowIndex": 50, "endRowIndex": 56,
