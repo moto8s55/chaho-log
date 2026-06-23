@@ -190,7 +190,14 @@ def create_record_tab(service, no: int, record: dict, photo_urls: list):
         service.spreadsheets().batchUpdate(
             spreadsheetId=SPREADSHEET_ID,
             body={"requests": [
-                # まず既存の結合を解除
+                # 行51-56の高さを120pxに設定（3行×120px=360px per photo）
+                {"updateDimensionProperties": {
+                    "range": {"sheetId": new_sheet_id, "dimension": "ROWS",
+                              "startIndex": 50, "endIndex": 56},
+                    "properties": {"pixelSize": 120},
+                    "fields": "pixelSize"
+                }},
+                # 既存の結合を解除
                 {"unmergeCells": {"range": {"sheetId": new_sheet_id,
                     "startRowIndex": 50, "endRowIndex": 56,
                     "startColumnIndex": 1, "endColumnIndex": 9}}},
