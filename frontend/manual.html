@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マニュアル · 品茗手帖</title>
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    .manual-page { padding-bottom: 60px; }
+
+    .manual-toc {
+      margin: 16px 16px 0;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 16px;
+    }
+    .manual-toc h2 {
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      color: var(--gold2);
+      font-family: 'Noto Serif SC', serif;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .manual-toc ul { list-style: none; }
+    .manual-toc li { margin: 6px 0; }
+    .manual-toc a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+    }
+    .manual-toc a:hover { color: var(--gold); }
+    .toc-chapter { font-weight: 700; color: var(--text); margin-top: 8px; }
+
+    .manual-section {
+      margin: 16px 16px 0;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .manual-section-header {
+      background: var(--bg3);
+      border-bottom: 2px solid var(--gold);
+      padding: 14px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: var(--text);
+      font-family: 'Noto Serif SC', serif;
+    }
+    .manual-section-body {
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .manual-h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.2em;
+      font-family: 'Noto Serif SC', serif;
+      border-left: 3px solid var(--gold);
+      padding-left: 10px;
+      margin-bottom: 8px;
+    }
+    .manual-p {
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--text);
+      letter-spacing: 0.05em;
+    }
+    .manual-note {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    /* ステップリスト */
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .step-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .step-num {
+      background: var(--red);
+      color: var(--bg);
+      min-width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* テーブル */
+    .manual-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .manual-table th {
+      background: var(--bg3);
+      color: var(--text);
+      padding: 8px 12px;
+      text-align: left;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      font-family: 'Noto Serif SC', serif;
+    }
+    .manual-table td {
+      padding: 8px 12px;
+      border: 1px solid rgba(184,150,90,0.3);
+      color: var(--text);
+      line-height: 1.6;
+      vertical-align: top;
+    }
+    .manual-table tr:nth-child(even) td { background: var(--bg2); }
+
+    /* フォトバッジ説明 */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .photo-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 10px;
+      font-size: 12px;
+      color: var(--text2);
+      text-align: center;
+      line-height: 1.6;
+    }
+    .photo-item strong { display: block; color: var(--text); font-size: 13px; margin-bottom: 4px; }
+
+    /* 権利章 */
+    .rights-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+    }
+    .rights-block h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold2);
+      letter-spacing: 0.15em;
+      font-family: 'Noto Serif SC', serif;
+      margin-bottom: 8px;
+    }
+    .rights-block p {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.8;
+    }
+
+    .brand-line {
+      text-align: center;
+      font-size: 20px;
+      font-family: 'Noto Serif SC', serif;
+      color: var(--text);
+      letter-spacing: 0.3em;
+      padding: 10px 0;
+    }
+
+    @media (min-width: 600px) {
+      .manual-toc, .manual-section { max-width: 640px; margin-left: auto; margin-right: auto; }
+    }
+  </style>
+</head>
+<body class="manual-page">
+  <div class="outer-frame">
+    <span class="corner-bl"></span>
+    <span class="corner-br"></span>
+
+    <header>
+      <a href="/" class="btn-back">← 地 圖</a>
+      <div class="header-center">
+        <div class="header-title">使 用 説 明</div>
+        <div class="header-sub">品 茗 手 帖 マニュアル</div>
+      </div>
+      <div class="header-deco">説</div>
+    </header>
+
+    <!-- 目次 -->
+    <nav class="manual-toc">
+      <h2>― 目 次 ―</h2>
+      <ul>
+        <li class="toc-chapter">第一章　クイックガイド</li>
+        <li><a href="#install">1-1. インストール（ホーム画面への追加）</a></li>
+        <li><a href="#quickstart">1-2. 基本的な使い方（5ステップ）</a></li>
+        <li><a href="#offline">1-3. オフライン時の操作</a></li>
+        <li class="toc-chapter">第二章　詳細マニュアル</li>
+        <li><a href="#toppage">2-1. トップページ（産地地圖）</a></li>
+        <li><a href="#form">2-2. 新しい記録を入力する</a></li>
+        <li><a href="#list">2-3. 記録一覧</a></li>
+        <li><a href="#spreadsheet">2-4. スプレッドシートとの連携</a></li>
+        <li><a href="#sync">2-5. オフライン機能について</a></li>
+        <li class="toc-chapter">第三章　権利・注意事項</li>
+        <li><a href="#rights">3-1. 著作権・利用について</a></li>
+        <li><a href="#disclaimer">3-2. 免責事項・技術情報</a></li>
+      </ul>
+    </nav>
+
+    <!-- 第一章 -->
+    <section class="manual-section" id="chapter1">
+      <div class="manual-section-header">第 一 章　ク イ ッ ク ガ イ ド</div>
+      <div class="manual-section-body">
+
+        <div>
+          <p class="manual-p">「品茗手帖」は、中国茶を愛する方々のための飲茶記録アプリです。お茶の産地・香り・味わいなど、一杯一杯の記憶を丁寧に記録し、中国茶産地図上で可視化することができます。</p>
+        </div>
+
+        <div id="install">
+          <p class="manual-h3">1-1. インストール（ホーム画面への追加）</p>
+          <p class="manual-p" style="margin-bottom:10px"><strong>iPhone / iPad の場合</strong></p>
+          <ol class="step-list">
+            <li><span class="step-num">1</span>Safari で <strong>https://chaho-log.onrender.com</strong> を開く</li>
+            <li><span class="step-num">2</span>画面下部の共有ボタン（□に上矢印のアイコン）をタップ</li>
+            <li><span class="step-num">3</span>「ホーム画面に追加」を選択</li>
+            <li><span class="step-num">4</span>「追加」をタップして完了</li>
+          </ol>
+          <p class="manual-p" style="margin-top:14px;margin-bottom:10px"><strong>Android の場合</strong></p>
+          <ol class="step-list">
+            <li><span class="step-num">1</span>Chrome で上記URLを開く</li>
+            <li><span class="step-num">2</span>右上メニュー（縦三点アイコン）をタップ</li>
+            <li><span class="step-num">3</span>「ホーム画面に追加」を選択して完了</li>
+          </ol>
+          <div class="manual-note" style="margin-top:12px">
+            💡 ホーム画面に追加すると、アプリとして起動できます。次回からはアイコンをタップするだけで開けます。
+          </div>
+        </div>
+
+        <div id="quickstart">
+          <p class="manual-h3">1-2. 基本的な使い方（5ステップ）</p>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><div><strong>トップページを開く</strong><br>中国茶産地圖が表示されます。記録のある産地には赤いピンが表示されます。</div></li>
+            <li><span class="step-num">2</span><div><strong>「＋ 新 記 錄」をタップ</strong><br>記録フォームが開きます。</div></li>
+            <li><span class="step-num">3</span><div><strong>必要な項目を入力する</strong><br>記録日（必須）と産地を入力すると地図ピンに反映されます。他の項目は任意です。</div></li>
+            <li><span class="step-num">4</span><div><strong>「保 存 記 錄」をタップ</strong><br>スプレッドシートに自動保存されます。</div></li>
+            <li><span class="step-num">5</span><div><strong>地図で確認する</strong><br>トップページに戻ると産地のピンが地図上に表示されます。</div></li>
+          </ol>
+        </div>
+
+        <div id="offline">
+          <p class="manual-h3">1-3. オフライン時の操作</p>
+          <p class="manual-p">インターネットに接続できない環境でも記録を入力・保存できます。端末内に一時保存され、次回オンライン時に自動的に同期されます。</p>
+          <div class="manual-note" style="margin-top:10px">
+            画面下部に「未送信記録：○件」と表示された場合は「今すぐ同期する」をタップしてください。
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 第二章 -->
+    <section class="manual-section" id="chapter2">
+      <div class="manual-section-header">第 二 章　詳 細 マ ニ ュ ア ル</div>
+      <div class="manual-section-body">
+
+        <div id="toppage">
+          <p class="manual-h3">2-1. トップページ（産地地圖）</p>
+          <p class="manual-p">起動すると中国茶主産地圖が表示されます。記録のある産地には<strong>赤いピン</strong>が表示され、記録件数が数字で示されます。</p>
+          <table class="manual-table" style="margin-top:12px">
+            <tr><th>操作</th><th>内容</th></tr>
+            <tr><td>赤いピンをタップ</td><td>その産地の記録一覧がポップアップで表示されます</td></tr>
+            <tr><td>「＋」「－」ボタン</td><td>地図のズームイン・ズームアウト</td></tr>
+            <tr><td>地図をドラッグ</td><td>表示範囲の移動</td></tr>
+            <tr><td>「記録一覧」ボタン</td><td>全記録の一覧ページへ移動</td></tr>
+            <tr><td>「＋ 新記録」ボタン</td><td>新しい記録の入力フォームへ移動</td></tr>
+          </table>
+        </div>
+
+        <div id="form">
+          <p class="manual-h3">2-2. 新しい記録を入力する</p>
+          <p class="manual-p">記録フォームは複数のセクションに分かれています。各セクションはタップで開閉でき、入力済みの項目数がバッジ（数字）で表示されます。</p>
+
+          <p style="font-weight:700;margin:12px 0 6px;font-size:13px;color:var(--text2);letter-spacing:0.1em">― 基 本 情 報 ―</p>
+          <table class="manual-table">
+            <tr><th width="35%">項目</th><th>説明</th></tr>
+            <tr><td>記録日（必須）</td><td>お茶を飲んだ日付。自動的に本日の日付が入ります</td></tr>
+            <tr><td>茶葉名</td><td>お茶の名前（例：大紅袍、西湖龍井）</td></tr>
+            <tr><td>産地（省）</td><td>茶葉の産地。地図ピンの配置に使用されます</td></tr>
+            <tr><td>茶類</td><td>緑茶・白茶・青茶・黄茶・黒茶・紅茶・花茶・工芸茶</td></tr>
+            <tr><td>茶号/品番</td><td>購入時の品番など</td></tr>
+            <tr><td>年份</td><td>茶葉の収穫年</td></tr>
+            <tr><td>場所</td><td>お茶を飲んだ場所</td></tr>
+            <tr><td>天気</td><td>晴・曇・雨・雪から選択</td></tr>
+          </table>
+
+          <p style="font-weight:700;margin:14px 0 6px;font-size:13px;color:var(--text2);letter-spacing:0.1em">― 茶 器 情 報 ―</p>
+          <p class="manual-p" style="margin-bottom:8px">茶器名フィールドの右横にあるカメラアイコンをタップすると、茶器の写真を撮影できます。</p>
+          <table class="manual-table">
+            <tr><th width="35%">項目</th><th>説明</th></tr>
+            <tr><td>茶器名</td><td>使用した茶器の名称（例：紫砂壺・白磁蓋碗）</td></tr>
+            <tr><td>窯元/作家</td><td>茶器の制作者や窯元名</td></tr>
+            <tr><td>茶器産地</td><td>茶器の産地（例：宜興・景徳鎮）</td></tr>
+            <tr><td>茶器年代</td><td>茶器の年代（例：民國期・現代）</td></tr>
+            <tr><td>容量</td><td>茶器の容量（ml）</td></tr>
+          </table>
+
+          <p style="font-weight:700;margin:14px 0 6px;font-size:13px;color:var(--text2);letter-spacing:0.1em">― 寫 眞 ―</p>
+          <div class="photo-grid">
+            <div class="photo-item"><strong>写真①　茶器</strong>茶器名欄のカメラボタンから撮影</div>
+            <div class="photo-item"><strong>写真②　茶葉・外観</strong>茶葉の外観写真</div>
+            <div class="photo-item"><strong>写真③　水色・茶湯</strong>茶の水色・色合いの写真</div>
+            <div class="photo-item"><strong>写真④　設え</strong>テーブルの設え全体の写真</div>
+          </div>
+
+          <p style="font-weight:700;margin:14px 0 6px;font-size:13px;color:var(--text2);letter-spacing:0.1em">― 總 合 評 價 ―</p>
+          <p class="manual-p">★をタップして1〜5の評価をつけられます。「是」「否」ボタンでまた飲みたいかを記録できます。</p>
+        </div>
+
+        <div id="list">
+          <p class="manual-h3">2-3. 記録一覧</p>
+          <p class="manual-p">「記録一覧」ボタンをタップすると、これまでの記録を新着順に一覧で確認できます。</p>
+          <table class="manual-table" style="margin-top:10px">
+            <tr><th>機能</th><th>操作方法</th></tr>
+            <tr><td>茶葉名で検索</td><td>上部の検索欄にキーワードを入力</td></tr>
+            <tr><td>産地で絞り込み</td><td>「産地 すべて」のプルダウンから選択</td></tr>
+            <tr><td>茶類で絞り込み</td><td>「茶類 すべて」のプルダウンから選択</td></tr>
+            <tr><td>詳細を見る</td><td>記録カードをタップすると詳細が展開されます</td></tr>
+          </table>
+        </div>
+
+        <div id="spreadsheet">
+          <p class="manual-h3">2-4. スプレッドシートとの連携</p>
+          <p class="manual-p">記録したデータはGoogleスプレッドシートに自動保存されます。</p>
+          <table class="manual-table" style="margin-top:10px">
+            <tr><th>シート名</th><th>内容</th></tr>
+            <tr><td>ダッシュボード</td><td>中国茶産地地図・総記録数・産地別記録数の統計</td></tr>
+            <tr><td>記録一覧</td><td>すべての記録の一覧表</td></tr>
+            <tr><td>No.XXXX</td><td>各記録の詳細シート（記録ごとに自動作成）</td></tr>
+            <tr><td>入力ガイド</td><td>各項目の選択肢一覧</td></tr>
+            <tr><td>産地・茶種ガイド</td><td>産地と茶種に関する参考情報</td></tr>
+          </table>
+        </div>
+
+        <div id="sync">
+          <p class="manual-h3">2-5. オフライン機能について</p>
+          <p class="manual-p">電波の届かない場所や機内モードでも記録を入力・保存できます。端末内に一時保存されたデータは、次回インターネットに接続した際に自動的にサーバーに送信されます。</p>
+          <div class="manual-note" style="margin-top:10px">
+            <strong>同期がうまくいかない場合</strong><br>
+            画面下部に「未送信記録：○件」と表示されている場合は、Wi-Fi環境で「今すぐ同期する」をタップしてください。
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 第三章 -->
+    <section class="manual-section" id="chapter3">
+      <div class="manual-section-header">第 三 章　権 利 · 注 意 事 項</div>
+      <div class="manual-section-body">
+
+        <div id="rights">
+          <p class="manual-h3">3-1. 著作権・利用について</p>
+          <div class="brand-line">Poivrerose</div>
+          <div class="rights-block">
+            <h4>著 作 権</h4>
+            <p>本アプリ「品茗手帖」に関するすべての権利（デザイン・システム・コンテンツを含む）は <strong>Poivrerose</strong> に帰属します。無断での複製・転載・改変・二次利用はお断りします。</p>
+          </div>
+          <div class="rights-block" style="margin-top:10px">
+            <h4>利 用 に つ い て</h4>
+            <p>・本アプリは個人の飲茶記録を目的として設計されています<br>
+            ・記録データはユーザー自身のGoogleアカウントに紐づくスプレッドシートに保存されます<br>
+            ・写真データはGoogle Driveに保存されます<br>
+            ・ユーザーのデータは第三者と共有されません</p>
+          </div>
+        </div>
+
+        <div id="disclaimer">
+          <p class="manual-h3">3-2. 免責事項・技術情報</p>
+          <div class="rights-block">
+            <h4>免 責 事 項</h4>
+            <p>・本アプリの利用によって生じたいかなる損害についても、制作者は責任を負いかねます<br>
+            ・サービスの内容は予告なく変更・終了する場合があります<br>
+            ・インターネット環境・端末の状況によっては正常に動作しない場合があります</p>
+          </div>
+          <div class="rights-block" style="margin-top:10px">
+            <h4>技 術 情 報</h4>
+            <p>本アプリはPWA（プログレッシブウェブアプリ）として動作します。<br>
+            Safari（iPhone）またはChrome（Android）でのご利用を推奨します。</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

@@ -103,6 +103,11 @@ def list_page():
     return FileResponse(os.path.join(FRONTEND_DIR, "list.html"))
 
 
+@app.get("/manual")
+def manual_page():
+    return FileResponse(os.path.join(FRONTEND_DIR, "manual.html"))
+
+
 @app.get("/")
 def index():
     return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
