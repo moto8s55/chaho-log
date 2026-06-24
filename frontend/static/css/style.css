@@ -81,7 +81,8 @@ header {
   font-family: 'Noto Serif SC', serif;
   opacity: 0.75;
   line-height: 1;
-  align-self: center;
+  align-self: flex-start;
+  padding-top: 2px;
 }
 
 .btn-record {
